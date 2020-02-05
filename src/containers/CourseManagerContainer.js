@@ -1,11 +1,13 @@
 import React from "react";
-import CourseTableComponent from "./CourseTableComponent";
-import CourseGridComponent from "./CourseGridComponent";
-import "../CourseTableComponent.css"
+import CourseTableComponent from "../components/CourseTableComponent";
+import CourseGridComponent from "../components/CourseGridComponent";
+import "../stylesheets/CourseTableComponent.css"
+import CourseEditorComponent from "../components/course-editor/CourseEditorComponent";
 
-class CourseManagerComponent extends React.Component {
+class CourseManagerContainer extends React.Component {
     state = {
-        layout: 'grid',
+        layout: 'table',
+        
         courses: [
             {id: '123', title: 'Course A', owner:'Me', lastModified:'6:45'},
             {id: '234', title: 'Course B', owner:'Me', lastModified:'6:45'},
@@ -26,21 +28,36 @@ class CourseManagerComponent extends React.Component {
             })
         })
     }
-    toggle = () =>
+    toggle = () => {
         this.setState(prevState => {
-            if(prevState.layout === 'table') {
+            if (prevState.layout === 'table') {
                 return ({
                     layout: 'grid'
                 })
-            }
-            else {
+            } else {
                 return ({
                     layout: 'table'
                 })
             }
         })
+    }
+    addCourse = () => {
+        this.setState(prevState => {
+            return({
+                courses: [...prevState.courses, {
+                    id: (new Date().getTime()),
+                    title: 'Course E',
+                    owner:'Me',
+                    lastModified:'6:45'
+                }]
+            })
+        })
+    }
+
     render() {
         return(
+            <div>
+            <CourseEditorComponent/>
             <div className="container-fluid">
 
                 <div className="fixed-action-btn">
@@ -62,23 +79,24 @@ class CourseManagerComponent extends React.Component {
                         <a className="navbar-brand wbdv-label wbdv-course-manager" href="#">Course
                             Manager</a>
                     </div>
-                    <div className="col-11 col-md-8">
-                        <form className="form-inline">
+                    <div className="col-11 col-md-8 form-inline">
+                        <form style={{width: "80%"}}>
 
-                            <div style={{width: "80%"}}>
+                            <div>
 
                                 <input className="form-control wbdv-field wbdv-new-course"
                                        style={{width: "100%"}} type="text"
                                        placeholder="New Course Title" aria-label="Search"/>
                             </div>
+                        </form>
 
                             <div style={{width: "20%"}} className="p-2">
-                                <button className="btn btn-danger wbdv-button wbdv-add-course"
-                                        type="submit">
+                                <button onClick={this.addCourse} className="btn btn-danger wbdv-button wbdv-add-course"
+                                        >
                                     <i className="fa fa-plus"></i>
                                 </button>
                             </div>
-                        </form>
+
                     </div>
 
 
@@ -126,7 +144,8 @@ class CourseManagerComponent extends React.Component {
                 {this.state.layout === 'grid' && <CourseGridComponent courses={this.state.courses}/>}
             </div>
             </div>
+            </div>
         )
     }
 }
-export default CourseManagerComponent
+export default CourseManagerContainer

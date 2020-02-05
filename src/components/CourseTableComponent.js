@@ -1,5 +1,5 @@
 import React from "react";
-import "../CourseTableComponent.css"
+import "../stylesheets/CourseTableComponent.css"
 
 const CourseTableComponent = ({courses, deleteCourse}) =>
     <div className="container-fluid">
