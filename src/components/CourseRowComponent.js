@@ -1,56 +1,51 @@
 import React from "react";
+// import {Link} from "react-router-dom";
 
 class CourseRowComponent extends React.Component {
-
     state = {
-        edit: false
+        editing: false
     }
     render() {
         return(
             <tr className="my-row">
                 <td className="wbdv-row wbdv-title">
-                    <i className="fas fa-file wbdv-row wbdv-icon m-2"></i>
-                    {!this.state.edit && <a onClick={this.props.showEditor} href="#">
+                    <i className="m-2 fas fa-file wbdv-row wbdv-icon"></i>
+                {
+                    !this.state.editing &&
+                    <a href="#">
                         {this.props.course.title}
-                    </a>}
+                    </a>
+                }
                     {this.state.editing && <input/>}
                 </td>
-
                 <td className="wbdv-row wbdv-owner">{this.props.course.owner}</td>
                 <td className="wbdv-row wbdv-last-modified">{this.props.course.lastModified}</td>
-                <td style={{width: "7%"}}>
-                    {!this.state.editing && <button onClick={() => {
-                        this.setState({
-                                          editing: true
-                                      })
-                    }} className="btn form-control" type="btn">
-                        <i className="fas fa-edit"></i>
-                    </button>}
+
+                <td>
+                    {!this.state.editing && <button className="btn" onClick={() => {
+                    this.setState({
+                                      editing: true
+                                  })
+                }}><i className="fa fa-edit"/></button>}
                 </td>
-                <td style={{width: "7%"}}>
-                    {this.state.editing && <button onClick={
+                <td>
+                    {this.state.editing && <button className="btn" onClick={() => {
                         this.setState({
                                           editing: false
                                       })
-                    }
-
-                                                   className="btn form-control">
-                        <i className="fa fa-save"></i>
-                    </button>}
+                    }}><i className="fa fa-save"/> </button>}
                 </td>
-                <td className="wbdv-row wbdv-button wbdv-delete">
-                    {!this.state.editing && <button
-                        onClick={() => this.props.deleteCourse(this.props.course)} className="btn"
-                        type="button">
-                        <label>X</label>
-                    </button>}
+                <td>
 
+                    {!this.state.editing &&  <button className="btn" onClick={() => this.props.deleteCourse(this.props.course)}>X</button>}</td>
+                {/*<button onClick={() => this.props.deleteCourse(this.props.course)} className="btn" type="button">*/}
+                {/*    <label>X</label>*/}
+                {/*</button>*/}
 
-                    </td>
+            {/*</li>*/}
             </tr>
         )
     }
-
 }
 
 export default CourseRowComponent
