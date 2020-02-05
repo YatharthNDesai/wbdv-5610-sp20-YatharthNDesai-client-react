@@ -20,7 +20,7 @@
 }
 @media screen and (max-width: 480px) {
     .wbdv-last-modified {
-        width: 10%;
+        /*width: 10%;*/
         display: none;
 
     }
@@ -31,11 +31,11 @@
 
     .wbdv-owner {
         display: none;
-        width: 20%;
+
     }
     .wbdv-empty{
         display: none;
-        width: 15%;
+
     }
 
     /*.my-head {*/
@@ -62,21 +62,21 @@
 }
 
 .wbdv-title{
-    width: 50%;
+    width: 40%;
 }
 .wbdv-delete{
-    width: 10%;
+    width: 7%;
 }
 
 .wbdv-grid-layout{
-    width: 5%;
+    width: 10%;
 }
 .wbdv-sort{
-    width: 5%;
+    width: 10%;
 }
 /*.wbdv-list-layout{*/
 /*    width: 10%;*/
 /*}*/
-.wbdv-empty{
-    width: 5%;
-}
+/*.wbdv-empty{*/
+/*    width: 5%;*/
+/*}*/

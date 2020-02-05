@@ -11,7 +11,7 @@ export const createCourse = (course) =>
 
 export const findAllCourses = async () => {
     const response = await fetch(API_URL)
-        return await response.json()
+    return await response.json()
 }
 export const deleteCourse = async (courseID) =>
 {

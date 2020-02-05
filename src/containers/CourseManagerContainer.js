@@ -22,9 +22,9 @@ class CourseManagerContainer extends React.Component {
 
     componentDidMount = async () => {
         const courses = await findAllCourses()
-            this.setState({
-                courses: courses
-                          })
+        this.setState({
+                          courses: courses
+                      })
 
     }
 
@@ -190,6 +190,8 @@ class CourseManagerContainer extends React.Component {
                                  deleteCourse={this.deleteCourse}
                                  courses={this.state.courses}/>}
                             {this.state.layout === 'grid' && <CourseGridComponent
+                                showEditor={this.showEditor}
+                                deleteCourse={this.deleteCourse}
                                 courses={this.state.courses}/>}
                         </div>
                     </div>
@@ -201,3 +203,4 @@ class CourseManagerContainer extends React.Component {
 }
 
 export default CourseManagerContainer
+
