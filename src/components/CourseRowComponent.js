@@ -20,7 +20,7 @@ class CourseRowComponent extends React.Component {
                     <i className="m-2 fas fa-file wbdv-row wbdv-icon"></i>
                     {
                         !this.state.editing &&
-                        <a href="#">
+                        <a href="#" onClick={this.props.showEditor}>
                             {this.state.course.title}
                         </a>
                     }
@@ -56,12 +56,7 @@ class CourseRowComponent extends React.Component {
 
                     {!this.state.editing && <button className="btn"
                                                     onClick={() => this.props.deleteCourse(
-                                                        this.props.course)}>X</button>}</td>
-                {/*<button onClick={() => this.props.deleteCourse(this.props.course)} className="btn" type="button">*/}
-                {/*    <label>X</label>*/}
-                {/*</button>*/}
-
-                {/*</li>*/}
+                                                        this.state.course)}>X</button>}</td>
             </tr>
         )
     }

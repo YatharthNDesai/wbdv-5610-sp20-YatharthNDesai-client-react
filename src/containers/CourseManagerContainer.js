@@ -24,19 +24,18 @@ class CourseManagerContainer extends React.Component {
     deleteCourse = (course) =>
         deleteCourse(course._id)
             .then(status => {
-
                 this.setState(prevState => {
                     return ({
                         courses: prevState
                             .courses
-                            .filter(function (crs) {
+                            .filter(function(crs) {
                                 return crs._id !== course._id
+                                
                             })
+
                     })
                 })
-
             })
-
     toggle = () => {
         this.setState(prevState => {
             if (prevState.layout === 'table') {
@@ -138,54 +137,17 @@ class CourseManagerContainer extends React.Component {
 
                         </nav>
                         <div className="container ">
-
-                            <table className="table table-hover">
-                                <thead>
-                                <tr className="my-head">
-
-                                    <th className="wbdv-header wbdv-title" scope="col">
-                                        Title
-                                    </th>
-
-                                    <th className="wbdv-header wbdv-owner" scope="col">Owned by</th>
-
-                                    <th className="wbdv-header wbdv-last-modified" scope="col">Last
-                                        Modified
-                                    </th>
-
-                                    <th onClick={this.toggle}
-                                        className="wbdv-button wbdv-grid-layout" scope="col">
-                                        <button className="btn wbdv-button wbdv-grid-layout "
-                                                type="button">
-                                            <i className="fas fa-th"></i>
-                                        </button>
-                                    </th>
-
-                                    {/*<th className="wbdv-button wbdv-list-layout" scope="col">*/}
-                                    {/*    <button className="btn wbdv-button wbdv-list-layout " type="button">*/}
-                                    {/*        <i className="fas fa-columns"></i>*/}
-                                    {/*    </button>*/}
-                                    {/*</th>*/}
-
-                                    <th className="wbdv-header wbdv-sort" scope="col">
-                                        <button className="btn" type="button">
-                                            <i className="fa fa-sort-alpha-down"></i>
-                                        </button>
-                                    </th>
-                                </tr>
-                                </thead>
-
-                            </table>
-
                             {this.state.layout === 'table' &&
                              <CourseTableComponent
                                  showEditor={this.showEditor}
                                  deleteCourse={this.deleteCourse}
-                                 courses={this.state.courses}/>}
+                                 courses={this.state.courses}
+                             toggle={this.toggle}/>}
                             {this.state.layout === 'grid' && <CourseGridComponent
                                 showEditor={this.showEditor}
                                 deleteCourse={this.deleteCourse}
-                                courses={this.state.courses}/>}
+                                courses={this.state.courses}
+                            toggle={this.toggle}/>}
                         </div>
                     </div>
                 }
