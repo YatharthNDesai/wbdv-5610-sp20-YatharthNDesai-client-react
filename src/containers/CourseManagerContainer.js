@@ -10,14 +10,7 @@ class CourseManagerContainer extends React.Component {
         layout: 'table',
         showEditor: false,
         newCourseTitle: "",
-        courses: [
-            {id: '123', title: 'Course A', owner: 'Me', lastModified: '6:45'},
-            {id: '234', title: 'Course B', owner: 'Me', lastModified: '6:45'},
-            {id: '345', title: 'Course C', owner: 'Me', lastModified: '6:45'},
-            {id: '456', title: 'Course D', owner: 'Me', lastModified: '6:45'},
-            {id: '567', title: 'Course E', owner: 'Me', lastModified: '6:45'},
-
-        ]
+        courses: []
     }
 
     componentDidMount = async () => {
