@@ -4,7 +4,7 @@ import ModuleListComponent from "./ModuleListComponent";
 import TopicListComponent from "./TopicListComponent";
 import WidgetFormContainer from "./WidgetFormContainer";
 
-const CourseEditorComponent = () =>
+const CourseEditorComponent = ({showList}) =>
     <div>
         <div className="fixed-action-btn">
             <button className="btn btn-danger fab-container">
@@ -13,7 +13,7 @@ const CourseEditorComponent = () =>
         </div>
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-                <button className="btn wbdv-course-editor wbdv-close">
+                <button onClick={showList} className="btn wbdv-course-editor wbdv-close">
                     <label style={{color: "white"}}>X</label>
                 </button>
                 <div style={{width: "5%"}}></div>
