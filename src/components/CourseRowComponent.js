@@ -1,6 +1,7 @@
 import React from "react";
 // import {Link} from "react-router-dom";
 import {updateCourse} from "../services/CourseService";
+import {Link} from "react-router-dom";
 
 class CourseRowComponent extends React.Component {
     constructor(props) {
@@ -20,9 +21,9 @@ class CourseRowComponent extends React.Component {
                     <i className="m-2 fas fa-file wbdv-row wbdv-icon"></i>
                     {
                         !this.state.editing &&
-                        <a href="#" onClick={this.props.showEditor}>
-                            {this.state.course.title}
-                        </a>
+                        <Link to={`/course-editor/${this.props.course._id}`}>
+                            {this.props.course.title}
+                        </Link>
                     }
                     {this.state.editing && <input
                         onChange={(e) => this.setState({

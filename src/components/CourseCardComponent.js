@@ -1,6 +1,7 @@
 import React from "react";
 import "../stylesheets/CourseGridComponent.css"
 import {updateCourse} from "../services/CourseService";
+import {Link} from "react-router-dom";
 
 class CourseCardComponent extends React.Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class CourseCardComponent extends React.Component {
     render() {
         return (
 
-            <div className="wbdv-card col-xs-10 col-sm-6 col-md-4 col-lg-3 col-xl-2"
+            <div className="wbdv-card col-xs-90% col-sm-45% col-md-30% col-lg-20% col-xl"
                  style={{position: "relative"}}>
                 <div className="col-3" style={{position: "absolute", right: 0}}>
                     <button onClick={() => this.props.deleteCourse(this.props.course)}
@@ -34,9 +35,10 @@ class CourseCardComponent extends React.Component {
                         <i className="fas fa-file wbdv-row wbdv-icon m-1"></i></div>
 
                     <div className="col-4">
-                        {!this.state.editing && <a onClick={this.props.showEditor} href="#">
-                            {this.state.course.title}
-                        </a>}
+                        {!this.state.editing &&
+                         <Link to="/course-editor">
+                             {this.props.course.title}
+                         </Link>}
                         {this.state.editing && <input
                             onChange={(e) => this.setState({
                                                                course: {
