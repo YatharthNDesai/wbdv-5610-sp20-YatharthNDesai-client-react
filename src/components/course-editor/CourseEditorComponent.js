@@ -6,10 +6,11 @@ import WidgetFormContainer from "./WidgetFormContainer";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import moduleReducer from "../../reducers/ModuleReducer";
+import LessonsListComponent from "./LessonsListComponent";
 
 const store = createStore(moduleReducer)
 
-const CourseEditorComponent = ({showList, match, history, courseId}) =>
+const CourseEditorComponent = ({showList, match, history, courseId, title}) =>
     <Provider store={store}>
     <div>
         <div className="fixed-action-btn">
@@ -25,7 +26,7 @@ const CourseEditorComponent = ({showList, match, history, courseId}) =>
                 </button>
                 <div style={{width: "5%"}}></div>
 
-                <a className="navbar-brand wbdv-course-title" href="#">CS5610-WebDev {courseId}</a>
+                <a className="navbar-brand wbdv-course-title" href="#">{title}</a>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
                     <ul className="navbar-nav mr-auto wbdv-page-tab">
@@ -61,6 +62,14 @@ const CourseEditorComponent = ({showList, match, history, courseId}) =>
                 courseId={courseId}
                 />
                 <div className="col-9">
+                    <LessonsListComponent
+                        lessons={[
+                            {id: "123", title: "Lesson 1"},
+                            {id: "234", title: "Lesson 2"},
+                            {id: "345", title: "Lesson 3"},
+                            {id: "456", title: "Lesson 4"}
+                        ]}
+                        />
                     <TopicListComponent
                         topics={[
                             {id: "123", title: "Topic 1"},

@@ -1,10 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
-import {createModule, deleteModule} from "../../actions/ModuleActions";
-import ModuleServices from "../../services/ModuleServices";
+import {createModule, deleteModule, updateModule} from "../../actions/ModuleActions";
+import ModuleServices, {findAllModules} from "../../services/ModuleServices";
+import {updateCourse} from "../../services/CourseService";
 
 
 class ModuleListComponent extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
+    state = {
+        editing: false,
+        module: this.props.module
+    }
 
     componentDidMount() {
         this.props.findModulesForCourse(this.props.courseId)
@@ -16,14 +26,35 @@ class ModuleListComponent extends React.Component {
                 {this.props.modules && this.props.modules.map(
                     module => <button key={module._id} type="button"
                                       className="btn btn-secondary  m-4 container-fluid wbdv-module-item">
-                        <label className="wbdv-module-item-title">{module.title}
-                        </label>
-                        <a onClick={() => this.props.deleteModule(module._id)}
+                        {!this.state.editing && <label className="wbdv-module-item-title">{module.title}
+                        </label>}
+                        {this.state.editing && <input
+                           //  onChange={(e) =>
+                           //      // console.log(e.target.value)
+                           //       this.props.updateModule()
+                           //                                 }
+                           // value={module.title}
+                        />
+                        }
+                        {this.state.editing && <button className="btn" onClick={(e) => {
+                            this.props.updateModule(module._id, e.target.value)
+                            this.setState({
+                                              editing: false
+                                          })
+                        }}><i className="fa fa-save"/></button>}
+                        {this.state.editing && <a onClick={() => this.props.deleteModule(module._id)}
                            className="wbdv-module-item-delete-btn" href="#">
                             X
-                        </a>
+                        </a>}
+                        {!this.state.editing &&<button className="btn" style={{float:"right"}} onClick={() => {
+                            this.setState({
+                                              editing: true
+                                          })
+                        }}>
+                            <i className="fa fa-edit"/>
+                        </button>}
                     </button>)}
-                <button onClick={this.props.createModule(this.props.courseId)}
+                <button onClick={() => this.props.createModule(this.props.courseId)}
                         type="button"
                         className="btn m-4 container-fluid wbdv-module-item-add-btn">
                     <i className="fa fa-plus" style={{color: "white"}}></i>
@@ -52,7 +83,6 @@ const dispatchToPropertyMapper = (dispatch) => {
                                                     modules: actualModules
                                                 }))
         ,
-
         deleteModule: (moduleId) =>
             ModuleServices.deleteModule(moduleId)
                 .then(status => dispatch(deleteModule(moduleId)))
@@ -60,9 +90,15 @@ const dispatchToPropertyMapper = (dispatch) => {
         ,
         createModule: (courseId) => {
             ModuleServices.createModule(courseId,{
-                title: 'New Module',
-            }).then(actualModule => dispatch(createModule(actualModule)))
-
+                title: 'New Module'
+            })
+                .then(actualModule =>
+                          dispatch(createModule(actualModule)))
+        },
+        updateModule: (moduleId, title) => {
+            ModuleServices.updateModule(moduleId,title
+            )
+                .then(actualModule => dispatch(updateModule(actualModule)))
         }
     }
 }

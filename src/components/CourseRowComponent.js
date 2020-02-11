@@ -21,7 +21,7 @@ class CourseRowComponent extends React.Component {
                     <i className="m-2 fas fa-file wbdv-row wbdv-icon"></i>
                     {
                         !this.state.editing &&
-                        <Link to={`/course-editor/${this.props.course._id}`}>
+                        <Link to={`/course-editor/${this.props.course._id}/${this.props.course.title}`}>
                             {this.props.course.title}
                         </Link>
                     }
