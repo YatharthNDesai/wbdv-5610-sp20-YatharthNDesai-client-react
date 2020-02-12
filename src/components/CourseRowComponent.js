@@ -22,7 +22,7 @@ class CourseRowComponent extends React.Component {
                     {
                         !this.state.editing &&
                         <Link to={`/course-editor/${this.props.course._id}/${this.props.course.title}`}>
-                            {this.props.course.title}
+                            {this.state.course.title}
                         </Link>
                     }
                     {this.state.editing && <input
@@ -50,6 +50,7 @@ class CourseRowComponent extends React.Component {
                         })
                         this.setState({
                                           editing: false
+
                                       })
                     }}><i className="fa fa-save"/></button>}
                 </td>

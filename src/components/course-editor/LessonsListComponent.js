@@ -3,6 +3,7 @@ import LessonListItem from "./LessonListItem";
 import LessonServices from "../../services/LessonServices";
 import {createLesson, deleteLesson, updateLesson} from "../../actions/LessonActions";
 import {connect} from "react-redux";
+import TopicServices from "../../services/TopicServices";
 
 class LessonsListComponent extends React.Component {
 
@@ -20,12 +21,15 @@ class LessonsListComponent extends React.Component {
 
             <div className="wbdv-topic-pill-list">
 
-                {this.props.lessons && this.props.lessons.map((less) => {
+                {this.props.lessons && this.props.lessons.map((lesson) => {
                                                                   return <LessonListItem
-                                                                      less={less}
+                                                                      lesson={lesson}
                                                                       updateLesson={this.props.updateLesson}
                                                                       deleteLesson={this.props.deleteLesson}
                                                                       moduleId={this.props.moduleId}
+                                                                      findTopicsForLesson={this.props.findTopicsForLesson}
+                                                                      title={this.props.title}
+                                                                      courseId={this.props.courseId}
                                                                   />
                                                               }
                 )}
@@ -50,6 +54,15 @@ const stateToPropertyMapper = (state) => {
 
 const dispatchToPropertyMapper = (dispatch) => {
     return {
+        findTopicsForLesson: (lessonId) =>
+
+
+            TopicServices.findTopicsForModule(lessonId)
+                .then(actualTopics => dispatch({
+                                                   type: "FIND_ALL_TOPICS",
+                                                   topics: actualTopics
+                                               }))
+        ,
         findLessonsForModule: (moduleId) =>
 
 
@@ -66,6 +79,7 @@ const dispatchToPropertyMapper = (dispatch) => {
 
         ,
         createLesson: (moduleId) => {
+
             LessonServices.createLesson(moduleId, {
                 title: 'New Lesson'
             }).then(actualLesson =>

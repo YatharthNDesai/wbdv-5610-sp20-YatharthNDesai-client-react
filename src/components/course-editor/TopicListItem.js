@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 
 
-class LessonListItem extends React.Component {
+class TopicListItem extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,40 +10,40 @@ class LessonListItem extends React.Component {
 
     state = {
         editing: false,
-        lessonTitle: ""
-}
+        topicTitle: ""
+    }
 
     render() {
         return (
             <button  type="button"
-                    className="btn btn-secondary  m-4  ">
-                {!this.state.editing && <Link onClick={() => this.props.findTopicsForLesson(this.props.lesson._id)} to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.moduleId}/${this.props.lesson._id}`}
+                     className="btn btn-secondary  m-4  ">
+                {!this.state.editing && <Link to={`/course-editor/`}
 
                 >
-                    {this.props.lesson.title}
+                    {this.props.topic.title}
                 </Link>}
                 {this.state.editing && <input
                     onChange={(e) =>
                         // console.log(e.target.value)
                         this.setState({
-                                          lessonTitle: e.target.value
+                                          topicTitle: e.target.value
                                       })                      }
-                    value={this.state.lessonTitle}
+                    value={this.state.topicTitle}
                 />
                 }
                 {this.state.editing && <button className="btn" onClick={(e) => {
 
-                    this.props.updateLesson(this.props.lesson._id, this.state.lessonTitle)
+                    this.props.updateTopic(this.props.topic._id, this.state.topicTitle)
                     this.setState({
                                       editing: false
                                   })
                 }}><i className="fa fa-save"/></button>}
                 {this.state.editing && <a onClick={() =>{
 
-                    this.props.deleteLesson(this.props.lesson._id)
+                    this.props.deleteTopic(this.props.topic._id)
                     this.setState({
-                    editing: false
-                })
+                                      editing: false
+                                  })
                 }}
                                           className="wbdv-module-item-delete-btn">
                     X
@@ -51,7 +51,7 @@ class LessonListItem extends React.Component {
                 {!this.state.editing &&<button className="btn" style={{float:"right"}} onClick={() => {
                     this.setState({
                                       editing: true,
-                                      lessonTitle: this.props.lesson.title
+                                      topicTitle: this.props.topic.title
                                   })
                 }}>
                     <i className="fa fa-edit"/>
@@ -64,4 +64,4 @@ class LessonListItem extends React.Component {
 
 }
 
-export default LessonListItem
+export default TopicListItem
