@@ -4,6 +4,7 @@ import {createModule, deleteModule, updateModule} from "../../actions/ModuleActi
 import ModuleServices, {findAllModules} from "../../services/ModuleServices";
 import {updateCourse} from "../../services/CourseService";
 import ModuleListItem from "./ModuleListItem";
+import LessonServices from "../../services/LessonServices";
 
 class ModuleListComponent extends React.Component {
 
@@ -27,9 +28,11 @@ class ModuleListComponent extends React.Component {
                 {this.props.modules && this.props.modules.map((module) => {
                                                                   return <ModuleListItem
                                                                       module={module}
+                                                                      courseId={this.props.courseId}
+                                                                      title={this.props.title}
                                                                       updateModule={this.props.updateModule}
                                                                       deleteModule={this.props.deleteModule}
-
+                                                                      findLessonsForModule={this.props.findLessonsForModule}
                                                                   />
                                                               }
                 )
@@ -51,12 +54,20 @@ class ModuleListComponent extends React.Component {
 
 const stateToPropertyMapper = (state) => {
     return {
-        modules: state.modules
+        modules: state.modules.modules
     }
 }
 
 const dispatchToPropertyMapper = (dispatch) => {
     return {
+        findLessonsForModule: (moduleId) =>
+
+
+            LessonServices.findLessonsForModule(moduleId)
+                .then(actualLessons => dispatch({
+                                                    type: "FIND_ALL_LESSONS",
+                                                    lessons: actualLessons
+                                                })),
         findModulesForCourse: (courseId) =>
             ModuleServices.findModulesForCourse(courseId)
                 .then(actualModules => dispatch({
@@ -83,7 +94,9 @@ const dispatchToPropertyMapper = (dispatch) => {
                 title: title
                                         }
             )
-                .then(actualModule => dispatch(updateModule(actualModule)))
+                .then(actualModule => {
+                    dispatch(updateModule(moduleId, title))
+                })
         }
     }
 }

@@ -30,7 +30,7 @@ class CourseManagerContainer extends React.Component {
                     return ({
                         courses: prevState
                             .courses
-                            .filter(function(crs) {
+                            .filter(function (crs) {
                                 return crs._id !== course._id
 
                             })
@@ -84,25 +84,46 @@ class CourseManagerContainer extends React.Component {
                     <Route path="/course-editor/:courseId/:title"
                            exact={true}
                            render={(props) =>
-                        <CourseEditorComponent
-                            {...props}
-                            courseId={props.match.params.courseId}
-                            title={props.match.params.title}
-                            showList={this.showList}
-                        />}/>
+                               <CourseEditorComponent
+                                   {...props}
+                                   courseId={props.match.params.courseId}
+                                   title={props.match.params.title}
+                                   showList={this.showList}
+                               />}/>
+                    <Route path="/course-editor/:courseId/:title/:moduleId/"
+                           exact={true}
+                           render={(props) =>
+                               <CourseEditorComponent
+                                   {...props}
+                                   moduleId={props.match.params.moduleId}
+                                   courseId={props.match.params.courseId}
+                                   title={props.match.params.title}
+                               />
+                           }/>
+                    <Route path="/course-editor/:courseId/module/:moduleId/lesson/:lessonId"
+                           exact={true}
+                           render={(props) =>
+                               <CourseEditorComponent
+                                   {...props}
+                                   lessonId={props.match.params.lessonId}
+                                   moduleId={props.match.params.moduleId}
+                                   courseId={props.match.params.courseId}
+                                   title={props.match.params.title}/>
+
+                           }/>
                     <Route path="/"
                            exact={true}
                            render={() =>
-                        <CourseListComponent
-                            toggle={this.toggle}
-                            updateForm={this.updateForm}
-                            newCourseTitle={this.state.newCourseTitle}
-                            addCourse={this.addCourse}
-                            layout={this.state.layout}
-                            showEditor={this.showEditor}
-                            courses={this.state.courses}
-                            deleteCourse={this.deleteCourse}
-                        />}/>
+                               <CourseListComponent
+                                   toggle={this.toggle}
+                                   updateForm={this.updateForm}
+                                   newCourseTitle={this.state.newCourseTitle}
+                                   addCourse={this.addCourse}
+                                   layout={this.state.layout}
+                                   showEditor={this.showEditor}
+                                   courses={this.state.courses}
+                                   deleteCourse={this.deleteCourse}
+                               />}/>
                 </Router>
 
             </div>

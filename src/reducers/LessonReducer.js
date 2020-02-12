@@ -1,35 +1,40 @@
-import {CREATE_MODULE, DELETE_MODULE, UPDATE_MODULE} from "../actions/LessonActions";
+import {CREATE_LESSON, DELETE_LESSON, UPDATE_LESSON} from "../actions/LessonActions";
 
 const initialState = {
-    modules: []
+    lessons: []
 }
 
-const moduleReducer = (state = initialState, action) => {
+const lessonReducer = (state = initialState, action) => {
 
-
+    console.log("state:", state)
+    console.log("state:", action)
     switch (action.type) {
-        case "FIND_ALL_MODULES":
+        case "FIND_ALL_LESSONS":
             return {
-                modules: action.modules
+                lessons: action.lessons
             }
-        case CREATE_MODULE:
+        case CREATE_LESSON:
             return {
-                modules: [
-                    ...state.modules,
-                    action.newModule
+                lessons: [
+                    ...state.lessons,
+                    action.newLesson
                 ]
             }
 
-        case DELETE_MODULE:
+        case DELETE_LESSON:
             return {
-                modules: state.modules.filter(module => module._id !== action.moduleId)
+                lessons: state.lessons.filter(lesson => lesson._id !== action.lessonId)
             }
 
-        case UPDATE_MODULE:
+        case UPDATE_LESSON:
             return {
                 ...state,
-                // modules: state.modules.map()
-
+                lessons: state.lessons.map((lesson) => {
+                    if (lesson._id === action.lessonId) {
+                        lesson.title = action.title
+                    }
+                    return lesson;
+                })
             }
 
         default:
@@ -38,4 +43,4 @@ const moduleReducer = (state = initialState, action) => {
     }
 }
 
-export default moduleReducer
+export default lessonReducer

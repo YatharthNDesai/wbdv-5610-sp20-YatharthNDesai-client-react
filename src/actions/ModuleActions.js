@@ -14,7 +14,8 @@ export const createModule = (newModule) => ({
     newModule: newModule
 })
 
-export const updateModule = (moduleId) => ({
+export const updateModule = (moduleId, title) => ({
     type: UPDATE_MODULE,
-    moduleId: moduleId
+    moduleId: moduleId,
+    title: title
 })

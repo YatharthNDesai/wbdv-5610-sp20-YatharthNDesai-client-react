@@ -3,14 +3,21 @@ import "../../stylesheets/CourseEditorComponent.css"
 import ModuleListComponent from "./ModuleListComponent";
 import TopicListComponent from "./TopicListComponent";
 import WidgetFormContainer from "./WidgetFormContainer";
-import {createStore} from "redux";
+import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import moduleReducer from "../../reducers/ModuleReducer";
 import LessonsListComponent from "./LessonsListComponent";
+import lessonReducer from "../../reducers/LessonReducer";
 
-const store = createStore(moduleReducer)
+const rootReducer = combineReducers({
+                                        modules: moduleReducer,
+                                        lessons: lessonReducer,
 
-const CourseEditorComponent = ({showList, match, history, courseId, title}) =>
+                                    })
+
+const store = createStore(rootReducer)
+
+const CourseEditorComponent = ({showList, match, history, courseId, moduleId, lessonId, title}) =>
     <Provider store={store}>
     <div>
         <div className="fixed-action-btn">
@@ -60,25 +67,20 @@ const CourseEditorComponent = ({showList, match, history, courseId, title}) =>
             <div className="row container-fluid">
                 <ModuleListComponent
                 courseId={courseId}
+                title={title}
                 />
                 <div className="col-9">
                     <LessonsListComponent
-                        lessons={[
-                            {id: "123", title: "Lesson 1"},
-                            {id: "234", title: "Lesson 2"},
-                            {id: "345", title: "Lesson 3"},
-                            {id: "456", title: "Lesson 4"}
-                        ]}
-                        />
-                    <TopicListComponent
-                        topics={[
-                            {id: "123", title: "Topic 1"},
-                            {id: "234", title: "Topic 2"},
-                            {id: "345", title: "Topic 3"},
-                            {id: "456", title: "Topic 4"},
+                        moduleId={moduleId}
+                        courseId={courseId}
+                        title={title}
 
-                        ]}
-                    />
+                        />
+                    {/*<TopicListComponent*/}
+                    {/*    lessonId={lessonId}*/}
+                    {/*    moduleId={moduleId}*/}
+                    {/*    courseId={courseId}*/}
+                    {/*/>*/}
 
                     <div style={{overflow: "hidden"}}>
                         <label className="switch m-1">
