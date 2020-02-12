@@ -1,7 +1,8 @@
 import {CREATE_MODULE, DELETE_MODULE, UPDATE_MODULE} from "../actions/ModuleActions";
 
 const initialState = {
-    modules: []
+    modules: [],
+    selected: "abc"
 }
 
 const moduleReducer = (state = initialState, action) => {

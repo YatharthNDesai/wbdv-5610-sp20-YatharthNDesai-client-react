@@ -33,6 +33,7 @@ class ModuleListComponent extends React.Component {
                                                                       updateModule={this.props.updateModule}
                                                                       deleteModule={this.props.deleteModule}
                                                                       findLessonsForModule={this.props.findLessonsForModule}
+                                                                      selected={this.props.selected}
                                                                   />
                                                               }
                 )
