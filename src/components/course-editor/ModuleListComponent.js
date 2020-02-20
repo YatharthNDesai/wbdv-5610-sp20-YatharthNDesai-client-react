@@ -13,10 +13,9 @@ class ModuleListComponent extends React.Component {
         super(props);
     }
 
-    // state = {
-    //     editing: false,
-    //     module: this.props.module
-    // }
+    state = {
+        selected: false
+    }
 
     componentDidMount() {
         this.props.findModulesForCourse(this.props.courseId)
@@ -33,7 +32,7 @@ class ModuleListComponent extends React.Component {
                                                                       updateModule={this.props.updateModule}
                                                                       deleteModule={this.props.deleteModule}
                                                                       findLessonsForModule={this.props.findLessonsForModule}
-                                                                      selected={this.props.selected}
+                                                                      selected={this.state.selected}
                                                                   />
                                                               }
                 )

@@ -1,14 +1,19 @@
 import React from "react";
 
-const WidgetFormContainer = () =>
+class HeadingWidgetContainer extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
+    render() {
+return(
         <div className="p-4">
 
-            <form className="container-fluid" style={ {borderStyle: "outset"}}>
+            <form className="container-fluid" style={{borderStyle: "outset"}}>
                 <div>
                     <div className="row">
                         <div className="col-6">
-                            <h3> Heading Widget</h3>
+                            <h3> {this.props.widget.title}</h3>
                         </div>
                         <div className="col-6">
                             <button type="button" className="btn btn-danger m-1"
@@ -50,6 +55,7 @@ const WidgetFormContainer = () =>
                 <h1>Heading text</h1>
             </form>
         </div>
-
-
-export default WidgetFormContainer
+)
+    }
+}
+export default HeadingWidgetContainer

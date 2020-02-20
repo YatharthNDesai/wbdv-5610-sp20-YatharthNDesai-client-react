@@ -11,26 +11,25 @@ class ModuleListItem extends React.Component {
         editing: false,
         course: this.props.course,
         newModuleTitle: "",
+        selected:false
     }
 
     render() {
-        if (this.props.selected === this.props.module._id) {
-            console.log(this.props.selected, this.props.module._id+ " if")
-            return (<div>
-                {!this.state.editing &&
-            <Link onClick={() => {
-                this.props.selected = this.props.module._id
-                this.props.findLessonsForModule(this.props.module._id)
-            }
-            }
+        if (this.state.selected) {
+            return (<button key={this.props.module._id} type="button"
+                            className="btn btn-primary  m-4 container-fluid wbdv-module-item">
+                    {!this.state.editing && <Link
+                        onClick={() => {
+                            this.setState({
+                                              selected:false
+                                          })
+                            this.props.findLessonsForModule(this.props.module._id)
+                        }}
+                        to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.module._id}`}
 
-                  to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.module._id}`}
-
-            >
-                {this.props.module.title}>
-                <button key={this.props.module._id} type="button"
-                        className="btn btn-primary  m-4 container-fluid wbdv-module-item">
-
+                    >
+                        {this.props.module.title}
+                    </Link>}
                     {this.state.editing && <input
                         onChange={(e) =>
                             // console.log(e.target.value)
@@ -64,19 +63,20 @@ class ModuleListItem extends React.Component {
                         <i className="fa fa-edit"/>
                     </button>}
                 </button>
-            </Link>
-        }
-
-</div>
             )
-        } else {
-            console.log(this.props.selected, this.props.module._id + "else")
+        } else if(!this.props.selected) {
             return (
                 <button key={this.props.module._id} type="button"
                         className="btn btn-secondary  m-4 container-fluid wbdv-module-item">
                     {!this.state.editing && <Link
-                        onClick={() => this.props.findLessonsForModule(this.props.module._id)}
-                        to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.module._id}`}
+                        onClick={() => {
+                            this.setState({
+
+                                              selected:true
+                                          })
+                            this.props.findLessonsForModule(this.props.module._id)
+                        }}
+                            to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.module._id}`}
 
                     >
                         {this.props.module.title}

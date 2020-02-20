@@ -2,18 +2,22 @@ import React from "react";
 import "../../stylesheets/CourseEditorComponent.css"
 import ModuleListComponent from "./ModuleListComponent";
 import TopicListComponent from "./TopicListComponent";
-import WidgetFormContainer from "./WidgetFormContainer";
 import {combineReducers, createStore} from "redux";
 import {Provider} from "react-redux";
 import moduleReducer from "../../reducers/ModuleReducer";
 import LessonsListComponent from "./LessonsListComponent";
 import lessonReducer from "../../reducers/LessonReducer";
+import HeadingWidgetReducer from "../../reducers/HeadingWidgetReducer";
 import topicReducer from "../../reducers/TopicReducer";
+import WidgetListComponent from "./WidgetListComponent";
+
 
 const rootReducer = combineReducers({
                                         modules: moduleReducer,
                                         lessons: lessonReducer,
-                                        topics: topicReducer
+                                        topics: topicReducer,
+                                        headingWidgets: HeadingWidgetReducer
+
 
                                     })
 
@@ -97,7 +101,7 @@ const CourseEditorComponent = ({showList, match, history, courseId, moduleId, le
                                 Save
                             </button>
                         </div>
-                        <WidgetFormContainer/>
+                        <WidgetListComponent/>
                     </div>
                 </div>
             </div>
