@@ -25,7 +25,12 @@ class TopicsListComponent extends React.Component {
                                                                     topic={topic}
                                                                     updateTopic={this.props.updateTopic}
                                                                     deleteTopic={this.props.deleteTopic}
-                                                                    lessonId={this.props.moduleId}
+                                                                    moduleId={this.props.moduleId}
+                                                                    courseId={this.props.courseId}
+                                                                    lessonId={this.props.lessonId}
+                                                                    topicId={this.props.topicId}
+                                                                    title={this.props.title}
+                                                                    findWidgetsForTopic={this.props.findWidgetsForTopic}
                                                                 />
                                                             }
                 )}
@@ -50,6 +55,13 @@ const stateToPropertyMapper = (state) => {
 
 const dispatchToPropertyMapper = (dispatch) => {
     return {
+        findWidgetsForTopic: (tid) =>
+            fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
+                .then(response => response.json())
+                .then(widgets => dispatch({
+                                              type: "FIND_WIDGETS_FOR_TOPIC",
+                                              widgets: widgets
+                                          })),
         findTopicsForLesson: (lessonId) =>
 
 

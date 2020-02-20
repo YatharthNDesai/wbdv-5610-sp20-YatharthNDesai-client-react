@@ -1,7 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
 
-
 class TopicListItem extends React.Component {
 
     constructor(props) {
@@ -15,9 +14,12 @@ class TopicListItem extends React.Component {
 
     render() {
         return (
-            <button  type="button"
-                     className="btn btn-secondary  m-4  ">
-                {!this.state.editing && <Link to={`/course-editor/`}
+            <button type="button"
+                    className="btn btn-secondary  m-4  ">
+                {!this.state.editing && <Link
+                    onClick={() => {
+                        this.props.findWidgetsForTopic(this.props.topic._id)}}
+                    to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.moduleId}/${this.props.lessonId}/${this.props.topic._id}`}
 
                 >
                     {this.props.topic.title}
@@ -27,7 +29,7 @@ class TopicListItem extends React.Component {
                         // console.log(e.target.value)
                         this.setState({
                                           topicTitle: e.target.value
-                                      })                      }
+                                      })}
                     value={this.state.topicTitle}
                 />
                 }
@@ -38,7 +40,7 @@ class TopicListItem extends React.Component {
                                       editing: false
                                   })
                 }}><i className="fa fa-save"/></button>}
-                {this.state.editing && <a onClick={() =>{
+                {this.state.editing && <a onClick={() => {
 
                     this.props.deleteTopic(this.props.topic._id)
                     this.setState({
@@ -48,19 +50,18 @@ class TopicListItem extends React.Component {
                                           className="wbdv-module-item-delete-btn">
                     X
                 </a>}
-                {!this.state.editing &&<button className="btn" style={{float:"right"}} onClick={() => {
-                    this.setState({
-                                      editing: true,
-                                      topicTitle: this.props.topic.title
-                                  })
-                }}>
+                {!this.state.editing && <button className="btn" style={{float: "right"}}
+                                                onClick={() => {
+                                                    this.setState({
+                                                                      editing: true,
+                                                                      topicTitle: this.props.topic.title
+                                                                  })
+                                                }}>
                     <i className="fa fa-edit"/>
                 </button>}
             </button>
         );
     }
-
-
 
 }
 

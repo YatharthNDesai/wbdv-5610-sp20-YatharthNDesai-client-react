@@ -23,14 +23,9 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer)
 
-const CourseEditorComponent = ({showList, match, history, courseId, moduleId, lessonId, title}) =>
+const CourseEditorComponent = ({showList, match, history, courseId, moduleId, lessonId, topicId, title}) =>
     <Provider store={store}>
         <div>
-            <div className="fixed-action-btn">
-                <button className="btn btn-danger fab-container">
-                    <i className="fa fa-plus"></i>
-                </button>
-            </div>
             <div>
                 <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                     <button onClick={() => history.push("/")}
@@ -86,22 +81,14 @@ const CourseEditorComponent = ({showList, match, history, courseId, moduleId, le
                             lessonId={lessonId}
                             moduleId={moduleId}
                             courseId={courseId}
+                            title={title}
                         />
 
-                        <div style={{overflow: "hidden"}}>
-                            <label className="switch m-1">
-                                <input type="checkbox"/>
-                                <span className="slider round"></span>
-                            </label>
-                            <label className="m-1" style={{fontWeight: "bolder", float: "right"}}>
-                                Preview
-                            </label>
-                            <button type="button" className="btn btn-success m-1"
-                                    style={{float: "right"}}>
-                                Save
-                            </button>
-                        </div>
-                        <WidgetListComponent/>
+                        <WidgetListComponent
+                            lessonId={lessonId}
+                            moduleId={moduleId}
+                            courseId={courseId}
+                            topicId={topicId}/>
                     </div>
                 </div>
             </div>
