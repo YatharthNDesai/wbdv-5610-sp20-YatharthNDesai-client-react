@@ -16,7 +16,8 @@ class WidgetListComponent extends React.Component {
     }
 
     state = {
-        widget: {}
+        widget: {},
+
     }
 
     save = () => {
@@ -39,7 +40,7 @@ class WidgetListComponent extends React.Component {
                 </div>
                 {/*<h1>Widget List</h1>*/}
                 {
-                    this.props.widgets.map(widget =>
+                    this.props.widgets.map((widget,index) =>
                                                <div key={widget.id}>
 
                                                    <div>
@@ -50,7 +51,12 @@ class WidgetListComponent extends React.Component {
                                                            deleteWidget={this.props.deleteWidget}
                                                            updateWidget={this.props.updateWidget}
                                                            topicId={this.props.topicId}
-                                                           widget={widget}/>
+                                                           widget={widget}
+                                                           index={index}
+                                                           moveUp={this.props.moveUp}
+                                                           moveDown={this.props.moveDown}
+                                                           length={this.props.widgets.length}
+                                                       />
                                                        {widget !== this.state.editing &&
                                                         <button onClick={() => this.setState({
                                                                                                  widget: widget
@@ -69,6 +75,18 @@ class WidgetListComponent extends React.Component {
 }
 
 const dispatchToPropertyMapper = (dispatch) => ({
+    moveUp: (index) => {
+        dispatch({
+            type: "MOVE_UP",
+            index:index
+         })
+    },
+    moveDown: (index) => {
+        dispatch({
+                     type: "MOVE_DOWN",
+                     index:index
+                 })
+    },
     createWidget: (tid) =>
         fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
             method: "POST",
@@ -87,7 +105,6 @@ const dispatchToPropertyMapper = (dispatch) => ({
     ,
     updateWidget: (tid, wid, title, type, size, paragraph) => {
 
-
         fetch(`http://localhost:8080/api/widgets/${wid}`, {
             method: 'PUT',
             body: JSON.stringify({
@@ -96,18 +113,23 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                      title: title,
                                      type: type,
                                      size: size,
-                                     paragraph:paragraph
+                                     paragraph: paragraph
                                  }),
             headers: {
                 'content-type': 'application/json'
             }
         }).then(response => response.json())
             .then(actualWidget => {
-            dispatch({
-                         type: "UPDATE_WIDGET",
-                         widget: actualWidget
-                     })
-        })
+                dispatch({
+                             type: "UPDATE_WIDGET",
+                             widget: actualWidget,
+                             widgetId: wid,
+                             title: title,
+                             typ: type,
+                             size: size,
+                             paragraph: paragraph
+                         })
+            })
     },
     deleteWidget: (wid) => {
         fetch(`http://localhost:8080/api/widgets/${wid}`, {
@@ -136,7 +158,9 @@ const dispatchToPropertyMapper = (dispatch) => ({
 })
 
 const stateToPropertyMapper = (state) => ({
-    widgets: state.headingWidgets.widgets
+    widgets: state.headingWidgets.widgets,
+    length: state.headingWidgets.widgets.length
+
 })
 
 export default connect(stateToPropertyMapper,

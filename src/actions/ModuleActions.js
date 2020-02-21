@@ -18,4 +18,5 @@ export const updateModule = (moduleId, title) => ({
     type: UPDATE_MODULE,
     moduleId: moduleId,
     title: title
+
 })

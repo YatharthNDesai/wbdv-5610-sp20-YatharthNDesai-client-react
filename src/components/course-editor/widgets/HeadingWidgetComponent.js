@@ -18,23 +18,24 @@ class HeadingWidgetComponent extends React.Component {
                     <div>
                         <div className="row">
                             <div className="col-6">
+                                <h1>{this.props.widget.type} Widget</h1>
                                 {this.props.widget.size === 1 &&
-                                 <h1>{this.props.widget.type} {this.props.widget.title}</h1>
+                                 <h1>{this.props.widget.title}</h1>
                                 }
                                 {this.props.widget.size === 2 &&
-                                 <h2>{this.props.widget.type} {this.props.widget.title}</h2>
+                                 <h2>{this.props.widget.title}</h2>
                                 }
                                 {this.props.widget.size === 3 &&
-                                 <h3>{this.props.widget.type} {this.props.widget.title}</h3>
+                                 <h3>{this.props.widget.title}</h3>
                                 }
                                 {this.props.widget.size === 4 &&
-                                 <h4>{this.props.widget.type} {this.props.widget.title}</h4>
+                                 <h4>{this.props.widget.title}</h4>
                                 }
                                 {this.props.widget.size === 5 &&
-                                 <h5>{this.props.widget.type} {this.props.widget.title}</h5>
+                                 <h5>{this.props.widget.title}</h5>
                                 }
                                 {this.props.widget.size === 6 &&
-                                 <h6>{this.props.widget.type} {this.props.widget.title}</h6>
+                                 <h6>{this.props.widget.title}</h6>
                                 }
                             </div>
                             <div className="col-6">
@@ -71,7 +72,9 @@ class HeadingWidgetComponent extends React.Component {
                                                 type: newType
                                             }
                                         }))
-                                    }} style={{float: "right"}} className="m-1">
+                                    }} style={{float: "right"}} className="m-1"
+                                value={this.state.widget.type}
+                                >
                                     <option>
                                         HEADING
                                     </option>
@@ -79,14 +82,40 @@ class HeadingWidgetComponent extends React.Component {
                                         PARAGRAPH
                                     </option>
                                 </select>
-                                <button type="button" className="btn btn-warning m-1"
+                                {console.log("sjdks: ", this.props.length-1)}
+                                { this.props.index !== this.props.length-1 &&
+                                    <button onClick={() => {
+                                    this.props.moveDown(this.props.index)
+                                    this.props.updateWidget(this.props.topicId,
+                                                            this.props.widget.id,
+                                                            this.state.widget.title,
+                                                            this.state.widget.type,
+                                                            this.state.widget.size,
+                                                            this.state.widget.paragraph);
+                                }
+
+                                }
+                                    type="button" className="btn btn-warning m-1"
                                         style={{float: "right"}}>
                                     <i className="fa fa-arrow-down"></i>
-                                </button>
-                                <button type="button" className="btn btn-warning m-1"
+                                </button>}
+                                {this.props.index !== 0 &&
+                                 <button onClick={() => {
+                                    this.props.moveUp(this.props.index)
+                                    this.props.updateWidget(this.props.topicId,
+                                                            this.props.widget.id,
+                                                            this.state.widget.title,
+                                                            this.state.widget.type,
+                                                            this.state.widget.size,
+                                                            this.state.widget.paragraph);
+                                }
+
+                                }
+                                    type="button" className="btn btn-warning m-1"
                                         style={{float: "right"}}>
                                     <i className="fa fa-arrow-up"></i>
                                 </button>
+                                }
                                 <label id="slider" className="switch m-1" style={{float: "right"}}>
                                     <input onFocus={() => {
                                         if (this.state.preview === false) {

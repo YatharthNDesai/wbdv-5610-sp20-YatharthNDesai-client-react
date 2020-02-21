@@ -18,8 +18,10 @@ class ParagraphWidgetComponent extends React.Component {
                     <div>
                         <div className="row">
                             <div className="col-6">
+                                <h1> {this.props.widget.type} Widget</h1>
                                 <h3> {this.props.widget.title}</h3>
-                                <h4> {this.props.widget.type}</h4>
+
+                                <p>{this.props.widget.paragraph}</p>
                             </div>
                             <div className="col-6">
                                 {    this.props.editing &&
@@ -53,7 +55,9 @@ class ParagraphWidgetComponent extends React.Component {
                                                 type: newType
                                             }
                                         }))
-                                    }} style={{float: "right"}} className="m-1">
+                                    }} style={{float: "right"}} className="m-1"
+                                value={this.state.widget.type}
+                                >
                                     <option>
                                         HEADING
                                     </option>
@@ -61,14 +65,39 @@ class ParagraphWidgetComponent extends React.Component {
                                         PARAGRAPH
                                     </option>
                                 </select>
-                                <button type="button" className="btn btn-warning m-1"
-                                        style={{float: "right"}}>
-                                    <i className="fa fa-arrow-down"></i>
-                                </button>
-                                <button type="button" className="btn btn-warning m-1"
-                                        style={{float: "right"}}>
-                                    <i className="fa fa-arrow-up"></i>
-                                </button>
+                                { this.props.index !== this.props.length-1 &&
+                                  <button onClick={() => {
+                                      this.props.moveDown(this.props.index)
+                                      this.props.updateWidget(this.props.topicId,
+                                                              this.props.widget.id,
+                                                              this.state.widget.title,
+                                                              this.state.widget.type,
+                                                              this.state.widget.size,
+                                                              this.state.widget.paragraph);
+                                  }
+
+                                  }
+                                          type="button" className="btn btn-warning m-1"
+                                          style={{float: "right"}}>
+                                      <i className="fa fa-arrow-down"></i>
+                                  </button>}
+                                {this.props.index !== 0 &&
+                                 <button onClick={() => {
+                                     this.props.moveUp(this.props.index)
+                                     this.props.updateWidget(this.props.topicId,
+                                                             this.props.widget.id,
+                                                             this.state.widget.title,
+                                                             this.state.widget.type,
+                                                             this.state.widget.size,
+                                                             this.state.widget.paragraph);
+                                 }
+
+                                 }
+                                         type="button" className="btn btn-warning m-1"
+                                         style={{float: "right"}}>
+                                     <i className="fa fa-arrow-up"></i>
+                                 </button>
+                                }
                                 <label className="switch m-1" style={{float: "right"}}>
                                     <input onFocus={() => {
                                         if (this.state.preview === false) {
@@ -93,7 +122,21 @@ class ParagraphWidgetComponent extends React.Component {
                         </div>
                         { this.props.editing &&
                           <div>
+                              <div className="form-group">
+                                  <input onChange={(e) => {
+                                      const newTitle = e.target.value;
+                                      this.setState(prevState => ({
+                                                        widget: {
+                                                            ...prevState.widget,
+                                                            title: newTitle
+                                                        }
+                                                    })
+                                      )
+                                  }}
 
+                                         className="form-control " type="text"
+                                         value={this.state.widget.title}/>
+                              </div>
                               <div className="form-group">
                                   <textarea onChange={(e) => {
                                       const newParagraph = e.target.value;

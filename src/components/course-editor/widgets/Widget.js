@@ -15,6 +15,10 @@ export default class Widget extends React.Component {
                         deleteWidget={this.props.deleteWidget}
                         updateWidget={this.props.updateWidget}
                         topicId={this.props.topicId}
+                        index={this.props.index}
+                        moveUp={this.props.moveUp}
+                        moveDown={this.props.moveDown}
+                        length={this.props.length}
                         widget={this.props.widget}/>
 
                 }
@@ -25,6 +29,10 @@ export default class Widget extends React.Component {
                         editing={this.props.editing}
                         deleteWidget={this.props.deleteWidget}
                         updateWidget={this.props.updateWidget}
+                        index={this.props.index}
+                        moveUp={this.props.moveUp}
+                        moveDown={this.props.moveDown}
+                        length={this.props.length}
                         widget={this.props.widget}/>
                 }
             </div>
