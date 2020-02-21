@@ -5,6 +5,11 @@ class ParagraphWidgetComponent extends React.Component {
         super(props);
     }
 
+    state = {
+        preview: false,
+        widget: this.props.widget
+    }
+
     render() {
         return(
             <div className="p-4">
@@ -25,18 +30,35 @@ class ParagraphWidgetComponent extends React.Component {
                                     style={{float: "right"}}>
                                     <label>X</label>
                                 </button>
-                                 <button onClick={() =>
-                                     this.props.save()
-                                 }
+                                 <button onClick={() => {
+                                     this.props.save();
+                                     this.props.updateWidget(this.props.topicId,
+                                                             this.props.widget.id,
+                                                             this.state.widget.title,
+                                                             this.state.widget.type,
+                                                             this.state.widget.size,this.state.widget.paragraph);
+                                 }}
                                          type="button" className="btn btn-success m-1"
                                          style={{float: "right"}}>
                                 Save
                                 </button>
                                  </span>
                                 }
-                                <select style={{float: "right"}} className="m-1">
+                                <select
+                                    onChange={(e) => {
+                                        let newType = e.target.value
+                                        this.setState(prevState => ({
+                                            widget: {
+                                                ...prevState.widget,
+                                                type: newType
+                                            }
+                                        }))
+                                    }} style={{float: "right"}} className="m-1">
                                     <option>
-                                        Heading 1
+                                        HEADING
+                                    </option>
+                                    <option>
+                                        PARAGRAPH
                                     </option>
                                 </select>
                                 <button type="button" className="btn btn-warning m-1"
@@ -48,7 +70,20 @@ class ParagraphWidgetComponent extends React.Component {
                                     <i className="fa fa-arrow-up"></i>
                                 </button>
                                 <label className="switch m-1" style={{float: "right"}}>
-                                    <input type="checkbox"/>
+                                    <input onFocus={() => {
+                                        if (this.state.preview === false) {
+                                            this.setState({
+                                                              preview: true
+                                                          })
+                                        }
+
+                                        if (this.state.preview === true) {
+                                            this.setState({
+                                                              preview: false
+                                                          })
+                                        }
+                                    }}
+                                           type="checkbox"/>
                                     <span className="slider round"></span>
                                 </label>
                                 <label className="m-1" style={{fontWeight: "bolder", float: "right"}}>
@@ -60,7 +95,17 @@ class ParagraphWidgetComponent extends React.Component {
                           <div>
 
                               <div className="form-group">
-                                  <textarea></textarea>
+                                  <textarea onChange={(e) => {
+                                      const newParagraph = e.target.value;
+                                      this.setState(prevState => ({
+                                                        widget: {
+                                                            ...prevState.widget,
+                                                            paragraph: newParagraph
+                                                        }
+                                                    })
+                                      )
+                                  }}
+                                      className="form-control"></textarea>
                               </div>
 
                               {/*<div className="form-group">*/}
@@ -78,10 +123,36 @@ class ParagraphWidgetComponent extends React.Component {
                           </div>
                         }
                     </div>
-                    { !this.props.editing &&
-                      <h4> Preview</h4>
+
+                    {
+
+                        this.state.preview && this.props.editing &&
+                        <h4> Preview</h4>
                     }
-                    <h1>Heading text</h1>
+                    {this.state.preview && this.props.editing &&
+                     <p>{this.state.widget.paragraph}</p>
+
+                    }
+                    {/*{this.state.preview && this.props.editing && this.props.widget.size === 2 &&*/}
+                    {/* <h2> Heading text</h2>*/}
+
+                    {/*}*/}
+                    {/*{this.state.preview && this.props.editing && this.props.widget.size === 3 &&*/}
+                    {/* <h3> Heading text</h3>*/}
+
+                    {/*}*/}
+                    {/*{this.state.preview && this.props.editing && this.props.widget.size === 4 &&*/}
+                    {/* <h4> Heading text</h4>*/}
+
+                    {/*}*/}
+                    {/*{this.state.preview && this.props.editing && this.props.widget.size === 5 &&*/}
+                    {/* <h5> Heading text</h5>*/}
+
+                    {/*}*/}
+                    {/*{this.state.preview && this.props.editing && this.props.widget.size === 6 &&*/}
+                    {/* <h6> Heading text</h6>*/}
+
+                    {/*}*/}
                 </form>
             </div>
         )

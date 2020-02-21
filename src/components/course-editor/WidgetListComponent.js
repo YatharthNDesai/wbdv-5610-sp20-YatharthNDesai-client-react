@@ -10,7 +10,7 @@ class WidgetListComponent extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.topicId !== this.props.topicId){
+        if (prevProps.topicId !== this.props.topicId) {
             this.props.findWidgetsForTopic(this.props.topicId)
         }
     }
@@ -25,7 +25,6 @@ class WidgetListComponent extends React.Component {
                       })
     }
 
-
     render() {
         return (
             <div>
@@ -33,7 +32,7 @@ class WidgetListComponent extends React.Component {
                     <div className="fixed-action-btn">
                         <button onClick={() =>
                             this.props.createWidget(this.props.topicId)}
-                            className="btn btn-danger fab-container">
+                                className="btn btn-danger fab-container">
                             <i className="fa fa-plus"></i>
                         </button>
                     </div>
@@ -41,25 +40,26 @@ class WidgetListComponent extends React.Component {
                 {/*<h1>Widget List</h1>*/}
                 {
                     this.props.widgets.map(widget =>
-                        <div key={widget.id}>
+                                               <div key={widget.id}>
 
-                            <div>
+                                                   <div>
 
-                            <Widget
-                                save={this.save}
-                                editing={widget === this.state.widget}
-                                deleteWidget={this.props.deleteWidget}
-                                widget={widget}/>
-                                {   widget !== this.state.editing &&
-                                    <button onClick={() => this.setState({
-                                                                          widget: widget
-                                                                      })}>
-                                    <i className="fa fa-edit btn-secondary m-1"/>
-                                </button>
-                                }
-                            </div>
-                        </div>
-
+                                                       <Widget
+                                                           save={this.save}
+                                                           editing={widget === this.state.widget}
+                                                           deleteWidget={this.props.deleteWidget}
+                                                           updateWidget={this.props.updateWidget}
+                                                           topicId={this.props.topicId}
+                                                           widget={widget}/>
+                                                       {widget !== this.state.editing &&
+                                                        <button onClick={() => this.setState({
+                                                                                                 widget: widget
+                                                                                             })}>
+                                                            <i className="fa fa-edit btn-secondary m-1"/>
+                                                        </button>
+                                                       }
+                                                   </div>
+                                               </div>
                     )
                 }
 
@@ -70,29 +70,53 @@ class WidgetListComponent extends React.Component {
 
 const dispatchToPropertyMapper = (dispatch) => ({
     createWidget: (tid) =>
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`,{
+        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
             method: "POST",
             body: JSON.stringify({
-                                     id: (new Date()).getTime()+"",
-                                     title:"New Widget"}),
+                                     id: (new Date()).getTime() + "",
+                                     title: "New Widget"
+                                 }),
             headers: {
                 'content-type': 'application/json'
             }
         }).then(response => response.json())
             .then(actualWidget => dispatch({
-                type: "CREATE_WIDGET",
-                widget: actualWidget
+                                               type: "CREATE_WIDGET",
+                                               widget: actualWidget
                                            }))
     ,
-    deleteWidget: (wid) =>
-    {
-        fetch(`http://localhost:8080/api/widgets/${wid}`,{
-            method:"DELETE"
+    updateWidget: (tid, wid, title, type, size, paragraph) => {
+
+
+        fetch(`http://localhost:8080/api/widgets/${wid}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                                     id: (new Date()).getTime() + "",
+                                     topicId: tid,
+                                     title: title,
+                                     type: type,
+                                     size: size,
+                                     paragraph:paragraph
+                                 }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(actualWidget => {
+            dispatch({
+                         type: "UPDATE_WIDGET",
+                         widget: actualWidget
+                     })
+        })
+    },
+    deleteWidget: (wid) => {
+        fetch(`http://localhost:8080/api/widgets/${wid}`, {
+            method: "DELETE"
         })
             .then(response => response.json())
             .then(status => dispatch({
-                type: "DELETE_WIDGET",
-                widgetId: wid
+                                         type: "DELETE_WIDGET",
+                                         widgetId: wid
                                      }))
     },
     findAllWidgets: () =>
@@ -118,3 +142,5 @@ const stateToPropertyMapper = (state) => ({
 export default connect(stateToPropertyMapper,
                        dispatchToPropertyMapper)
 (WidgetListComponent)
+
+

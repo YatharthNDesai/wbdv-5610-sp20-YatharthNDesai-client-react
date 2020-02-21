@@ -20,6 +20,7 @@ class ModuleListItem extends React.Component {
                             className="btn btn-primary  m-4 container-fluid wbdv-module-item">
                     {!this.state.editing && <Link
                         onClick={() => {
+
                             this.setState({
                                               selected:false
                                           })

@@ -13,6 +13,8 @@ export default class Widget extends React.Component {
                         save={this.props.save}
                         editing={this.props.editing}
                         deleteWidget={this.props.deleteWidget}
+                        updateWidget={this.props.updateWidget}
+                        topicId={this.props.topicId}
                         widget={this.props.widget}/>
 
                 }
@@ -22,6 +24,7 @@ export default class Widget extends React.Component {
                         save={this.props.save}
                         editing={this.props.editing}
                         deleteWidget={this.props.deleteWidget}
+                        updateWidget={this.props.updateWidget}
                         widget={this.props.widget}/>
                 }
             </div>
