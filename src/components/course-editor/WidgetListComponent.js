@@ -2,10 +2,11 @@ import React from "react";
 import HeadingWidgetComponent from "./widgets/HeadingWidgetComponent";
 import {connect} from "react-redux";
 import Widget from "./widgets/Widget";
+import {Button} from "react-bootstrap";
 
 class WidgetListComponent extends React.Component {
     componentDidMount() {
-        this.props.findAllWidgets()
+        // this.props.findAllWidgets()
         this.props.findWidgetsForTopic(this.props.topicId)
     }
 
@@ -38,35 +39,50 @@ class WidgetListComponent extends React.Component {
                         </button>
                     </div>
                 </div>
+                <div>
+                    <button
+                        onClick={() => {
+                            this.props.updateAll(this.props.topicId, this.state.widgets)
+                        }}
+                        className="btn btn-success">Save Order
+                    </button>
+                </div>
                 {/*<h1>Widget List</h1>*/}
-                {
-                    this.props.widgets.map((widget,index) =>
-                                               <div key={widget.id}>
+                {this.props.widgets &&
+                 this.props.widgets.map((widget, index) =>
+                                            <div key={widget.id}>
 
-                                                   <div>
+                                                <div className="m-4">
+                                                    <form className="container-fluid"
+                                                          style={{borderStyle: "outset"}}>
 
-                                                       <Widget
-                                                           save={this.save}
-                                                           editing={widget === this.state.widget}
-                                                           deleteWidget={this.props.deleteWidget}
-                                                           updateWidget={this.props.updateWidget}
-                                                           topicId={this.props.topicId}
-                                                           widget={widget}
-                                                           index={index}
-                                                           moveUp={this.props.moveUp}
-                                                           moveDown={this.props.moveDown}
-                                                           length={this.props.widgets.length}
-                                                       />
-                                                       {widget !== this.state.editing &&
-                                                        <button onClick={() => this.setState({
-                                                                                                 widget: widget
-                                                                                             })}>
-                                                            <i className="fa fa-edit btn-secondary m-1"/>
-                                                        </button>
-                                                       }
-                                                   </div>
-                                               </div>
-                    )
+                                                        <Widget
+                                                            save={this.save}
+                                                            editing={widget === this.state.widget}
+                                                            deleteWidget={this.props.deleteWidget}
+                                                            updateWidget={this.props.updateWidget}
+                                                            findWidgetsForTopic={this.props.findWidgetsForTopic}
+                                                            topicId={this.props.topicId}
+                                                            widget={widget}
+                                                            index={index}
+                                                            moveUp={this.props.moveUp}
+                                                            moveDown={this.props.moveDown}
+                                                            length={this.props.widgets.length}
+                                                        />
+                                                    </form>
+                                                    {widget !== this.state.editing &&
+                                                     <button onClick={() => this.setState({
+                                                                                              widget: widget
+                                                                                          })}
+                                                             className="btn-secondary btn m-1"
+                                                     >
+                                                         <i className="fa fa-edit"/>
+                                                     </button>
+                                                    }
+                                                    {/*</form>*/}
+                                                </div>
+                                            </div>
+                 )
                 }
 
             </div>
@@ -77,14 +93,14 @@ class WidgetListComponent extends React.Component {
 const dispatchToPropertyMapper = (dispatch) => ({
     moveUp: (index) => {
         dispatch({
-            type: "MOVE_UP",
-            index:index
-         })
+                     type: "MOVE_UP",
+                     index: index
+                 })
     },
     moveDown: (index) => {
         dispatch({
                      type: "MOVE_DOWN",
-                     index:index
+                     index: index
                  })
     },
     createWidget: (tid) =>
@@ -103,17 +119,39 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                                widget: actualWidget
                                            }))
     ,
-    updateWidget: (tid, wid, title, type, size, paragraph) => {
+    updateAll: (tid, widgets) => {
+
+        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                                     topicId: tid,
+                                     widgets:widgets
+                                 }),
+
+
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response => response.json())
+            .then(actualWidgets => {
+                dispatch({
+                             type: "UPDATE_ALL",
+                             widgets: actualWidgets,
+                         })
+            })
+    },
+    updateWidget: (tid, wid, title, type, size, paragraph, order) => {
 
         fetch(`http://localhost:8080/api/widgets/${wid}`, {
             method: 'PUT',
             body: JSON.stringify({
-                                     id: (new Date()).getTime() + "",
+                                     id: wid,
                                      topicId: tid,
                                      title: title,
                                      type: type,
                                      size: size,
-                                     paragraph: paragraph
+                                     paragraph: paragraph,
+                                     order: order
                                  }),
             headers: {
                 'content-type': 'application/json'

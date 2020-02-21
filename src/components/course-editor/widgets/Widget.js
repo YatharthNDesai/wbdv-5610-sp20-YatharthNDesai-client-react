@@ -14,6 +14,7 @@ export default class Widget extends React.Component {
                         editing={this.props.editing}
                         deleteWidget={this.props.deleteWidget}
                         updateWidget={this.props.updateWidget}
+                        findWidgetsForTopic={this.props.findWidgetsForTopic}
                         topicId={this.props.topicId}
                         index={this.props.index}
                         moveUp={this.props.moveUp}
@@ -27,8 +28,10 @@ export default class Widget extends React.Component {
                     <ParagraphWidgetComponent
                         save={this.props.save}
                         editing={this.props.editing}
+                        topicId={this.props.topicId}
                         deleteWidget={this.props.deleteWidget}
                         updateWidget={this.props.updateWidget}
+                        findWidgetsForTopic={this.props.findWidgetsForTopic}
                         index={this.props.index}
                         moveUp={this.props.moveUp}
                         moveDown={this.props.moveDown}

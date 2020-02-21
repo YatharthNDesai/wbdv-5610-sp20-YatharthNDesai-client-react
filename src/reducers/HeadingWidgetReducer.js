@@ -1,5 +1,4 @@
-const widgets = [
-]
+const widgets = []
 
 const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
     console.log("Reached Reducer")
@@ -27,9 +26,15 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
             return {
                 widgets: action.widgets
             }
+        case "UPDATE_ALL":
+            console.log(action.widgets)
+            return {
+                widgets: action.widgets
+            }
+
         case "UPDATE_WIDGET":
-            // console.log(console.log("Reducer" + action.wid + " " + action.title + " " +
-            // action.type + " " + action.size))
+            console.log("Reducer" + action.widgetId + " " + action.title + " " +
+                        action.type + " " + action.size + " " + action.paragraph)
             return {
 
                 ...state,
@@ -39,21 +44,21 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
                         widget.type = action.typ
                         widget.size = action.size
                         widget.paragraph = action.paragraph
+                        widget.order = action.order
                     }
                     return widget;
                 })
             }
         case "MOVE_UP":
-
-                let movingItem = state.widgets[action.index]
-                state.widgets.splice(action.index, 1)
-                state.widgets.splice(action.index - 1, 0, movingItem)
+        {
+            let movingItem = state.widgets[action.index]
+            state.widgets.splice(action.index, 1)
+            state.widgets.splice(action.index - 1, 0, movingItem)}
         case "MOVE_DOWN":
-
+        {
             let moving = state.widgets[action.index]
             state.widgets.splice(action.index, 1)
-            state.widgets.splice(action.index + 1, 0, moving)
-
+            state.widgets.splice(action.index + 1, 0, moving)}
 
         // widgets[action.index] = widgets[action.index-1]
         // widgets[action.index-1] = widgets[tempWidget]

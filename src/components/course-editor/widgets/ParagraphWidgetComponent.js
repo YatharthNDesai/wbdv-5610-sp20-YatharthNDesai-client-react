@@ -14,7 +14,7 @@ class ParagraphWidgetComponent extends React.Component {
         return(
             <div className="p-4">
 
-                <form className="container-fluid" style={{borderStyle: "outset"}}>
+
                     <div>
                         <div className="row">
                             <div className="col-6">
@@ -38,7 +38,7 @@ class ParagraphWidgetComponent extends React.Component {
                                                              this.props.widget.id,
                                                              this.state.widget.title,
                                                              this.state.widget.type,
-                                                             this.state.widget.size,this.state.widget.paragraph);
+                                                             this.state.widget.size,this.state.widget.paragraph,this.state.widget.order);
                                  }}
                                          type="button" className="btn btn-success m-1"
                                          style={{float: "right"}}>
@@ -74,6 +74,13 @@ class ParagraphWidgetComponent extends React.Component {
                                                               this.state.widget.type,
                                                               this.state.widget.size,
                                                               this.state.widget.paragraph);
+                                      // let newOrder = this.state.order + 1
+                                      // this.setState(prevState => ({
+                                      //     widget: {
+                                      //         ...prevState.widget,
+                                      //         order:newOrder
+                                      //     }
+                                      // }))
                                   }
 
                                   }
@@ -148,7 +155,8 @@ class ParagraphWidgetComponent extends React.Component {
                                                     })
                                       )
                                   }}
-                                      className="form-control"></textarea>
+                                      className="form-control"
+                                  value={this.state.widget.paragraph}></textarea>
                               </div>
 
                               {/*<div className="form-group">*/}
@@ -196,7 +204,6 @@ class ParagraphWidgetComponent extends React.Component {
                     {/* <h6> Heading text</h6>*/}
 
                     {/*}*/}
-                </form>
             </div>
         )
     }
