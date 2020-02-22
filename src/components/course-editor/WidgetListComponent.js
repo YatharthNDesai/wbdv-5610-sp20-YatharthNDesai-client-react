@@ -104,7 +104,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
                  })
     },
     createWidget: (tid) =>
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
+        fetch(`https://secret-beach-98864.herokuapp.com//api/topics/${tid}/widgets`, {
             method: "POST",
             body: JSON.stringify({
                                      id: (new Date()).getTime() + "",
@@ -144,7 +144,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
 // } ,
     updateWidget: (tid, wid, title, type, size, paragraph, order) => {
 
-        fetch(`http://localhost:8080/api/widgets/${wid}`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {
             method: 'PUT',
             body: JSON.stringify({
                                      id: wid,
@@ -172,7 +172,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
             })
     },
     deleteWidget: (wid) => {
-        fetch(`http://localhost:8080/api/widgets/${wid}`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {
             method: "DELETE"
         })
             .then(response => response.json())
@@ -182,14 +182,14 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                      }))
     },
     findAllWidgets: () =>
-        fetch("http://localhost:8080/api/widgets")
+        fetch("https://secret-beach-98864.herokuapp.com/api/widgets")
             .then(response => response.json())
             .then(widgets => dispatch({
                                           type: "FIND_ALL_WIDGETS",
                                           widgets: widgets
                                       })),
     findWidgetsForTopic: (tid) =>
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
+        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`)
             .then(response => response.json())
             .then(widgets => dispatch({
                                           type: "FIND_WIDGETS_FOR_TOPIC",
@@ -206,5 +206,3 @@ const stateToPropertyMapper = (state) => ({
 export default connect(stateToPropertyMapper,
                        dispatchToPropertyMapper)
 (WidgetListComponent)
-
-
