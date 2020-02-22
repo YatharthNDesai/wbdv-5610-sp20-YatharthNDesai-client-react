@@ -26,11 +26,6 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
             return {
                 widgets: action.widgets
             }
-        case "UPDATE_ALL":
-            console.log(action.widgets)
-            return {
-                widgets: action.widgets
-            }
 
         case "UPDATE_WIDGET":
             console.log("Reducer" + action.widgetId + " " + action.title + " " +

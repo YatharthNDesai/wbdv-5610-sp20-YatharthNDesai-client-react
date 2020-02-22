@@ -46,8 +46,6 @@ class HeadingWidgetComponent extends React.Component {
                                  style={{float: "right"}}>
                                  <label>X</label>
                              </button>
-
-                            }
                             <button onClick={() => {
                                 this.props.save();
                                 this.props.updateWidget(this.props.topicId,
@@ -63,8 +61,7 @@ class HeadingWidgetComponent extends React.Component {
                                     style={{float: "right"}}>
                                 Save
                             </button>
-                                 </span>
-                            }
+
                             <select
                                 onChange={(e) => {
                                     let newType = e.target.value
@@ -153,7 +150,8 @@ class HeadingWidgetComponent extends React.Component {
                                 Preview
                             </label>
 
-
+    </span>
+                            }
                         </div>
                     </div>
                     {this.props.editing &&

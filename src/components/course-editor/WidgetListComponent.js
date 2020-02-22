@@ -41,9 +41,9 @@ class WidgetListComponent extends React.Component {
                 </div>
                 <div>
                     <button
-                        onClick={() => {
-                            this.props.updateAll(this.props.topicId, this.state.widgets)
-                        }}
+                        // onClick={() => {
+                        //     this.props.updateAll(this.props.topicId, this.props.widgets)
+                        // }}
                         className="btn btn-success">Save Order
                     </button>
                 </div>
@@ -119,27 +119,29 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                                widget: actualWidget
                                            }))
     ,
-    updateAll: (tid, widgets) => {
-
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                                     topicId: tid,
-                                     widgets:widgets
-                                 }),
-
-
-            headers: {
-                'content-type': 'application/json'
-            }
-        }).then(response => response.json())
-            .then(actualWidgets => {
-                dispatch({
-                             type: "UPDATE_ALL",
-                             widgets: actualWidgets,
-                         })
-            })
-    },
+//     updateAll: (tid, widgets) => {
+//         console.log(widgets,tid)
+//         widgets.map((widget) => {
+//             fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
+//                 method: 'PUT',
+//                 body: JSON.stringify({
+//                                          widget:widget
+//                                      }),
+//
+//
+//                 headers: {
+//                     'content-type': 'application/json'
+//                 }
+//             }).then(response => response.json())
+//                 .then(actualWidgets => {
+//                     dispatch({
+//                                  type: "UPDATE_ALL",
+//                                  widgets: actualWidgets,
+//                              })
+//                 })
+//
+//         })
+// } ,
     updateWidget: (tid, wid, title, type, size, paragraph, order) => {
 
         fetch(`http://localhost:8080/api/widgets/${wid}`, {

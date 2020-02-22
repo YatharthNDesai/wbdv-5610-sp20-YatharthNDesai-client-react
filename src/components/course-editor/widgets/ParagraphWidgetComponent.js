@@ -44,8 +44,6 @@ class ParagraphWidgetComponent extends React.Component {
                                          style={{float: "right"}}>
                                 Save
                                 </button>
-                                 </span>
-                                }
                                 <select
                                     onChange={(e) => {
                                         let newType = e.target.value
@@ -125,6 +123,8 @@ class ParagraphWidgetComponent extends React.Component {
                                 <label className="m-1" style={{fontWeight: "bolder", float: "right"}}>
                                     Preview
                                 </label>
+                                             </span>
+                                }
                             </div>
                         </div>
                         { this.props.editing &&
