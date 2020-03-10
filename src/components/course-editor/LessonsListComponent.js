@@ -83,7 +83,7 @@ const dispatchToPropertyMapper = (dispatch) => {
             LessonServices.createLesson(moduleId, {
                 title: 'New Lesson'
             }).then(actualLesson =>
-                          dispatch(createLesson({title: 'New Lesson'})))
+                          dispatch(createLesson(actualLesson)))
         },
         updateLesson: (lessonId, title) => {
 

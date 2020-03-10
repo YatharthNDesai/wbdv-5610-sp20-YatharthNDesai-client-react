@@ -41,9 +41,9 @@ class WidgetListComponent extends React.Component {
                 </div>
                 <div>
                     <button
-                        // onClick={() => {
-                        //     this.props.updateAll(this.props.topicId, this.props.widgets)
-                        // }}
+                        onClick={() => {
+                            this.props.updateAll(this.props.topicId, this.props.widgets)
+                        }}
                         className="btn btn-success">Save Order
                     </button>
                 </div>
@@ -104,7 +104,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
                  })
     },
     createWidget: (tid) =>
-        fetch(`https://secret-beach-98864.herokuapp.com//api/topics/${tid}/widgets`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`, {
             method: "POST",
             body: JSON.stringify({
                                      id: (new Date()).getTime() + "",
@@ -119,29 +119,20 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                                widget: actualWidget
                                            }))
     ,
-//     updateAll: (tid, widgets) => {
-//         console.log(widgets,tid)
-//         widgets.map((widget) => {
-//             fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
-//                 method: 'PUT',
-//                 body: JSON.stringify({
-//                                          widget:widget
-//                                      }),
-//
-//
-//                 headers: {
-//                     'content-type': 'application/json'
-//                 }
-//             }).then(response => response.json())
-//                 .then(actualWidgets => {
-//                     dispatch({
-//                                  type: "UPDATE_ALL",
-//                                  widgets: actualWidgets,
-//                              })
-//                 })
-//
-//         })
-// } ,
+    updateAll: (tid, widgets) => {
+
+        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`, {
+            method: "PUT",
+            body: JSON.stringify(widgets),
+            headers: {'content-type': 'application/json'}
+        }).then(response => response.json())
+            .then(actualWidgets => {
+            dispatch({
+                         type: "UPDATE_ALL",
+                         widgets: actualWidgets,
+                     })
+        })
+} ,
     updateWidget: (tid, wid, title, type, size, paragraph, order) => {
 
         fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {

@@ -81,7 +81,7 @@ const dispatchToPropertyMapper = (dispatch) => {
             TopicServices.createTopic(lessonId, {
                 title: 'New Topic'
             }).then(actualTopic =>
-                        dispatch(createTopic({title: 'New Topic'})))
+                        dispatch(createTopic(actualTopic)))
         },
         updateTopic: (topicId, title) => {
 
