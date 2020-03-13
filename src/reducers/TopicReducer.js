@@ -34,6 +34,10 @@ const topicReducer = (state = initialState, action) => {
                     return topic;
                 })
             }
+        case "SET_TOPICS":
+            return {
+                topics: action.topics
+            }
 
         default:
             return state

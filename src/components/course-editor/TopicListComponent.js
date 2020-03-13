@@ -12,7 +12,14 @@ class TopicsListComponent extends React.Component {
     }
 
     componentDidMount() {
+        // this.props.findAllTopics()
         this.props.findTopicsForLesson(this.props.lessonId)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.lessonId !== this.props.lessonId){
+            this.props.findTopicsForLesson(this.props.lessonId)
+        }
     }
 
     render() {
@@ -65,12 +72,19 @@ const dispatchToPropertyMapper = (dispatch) => {
         findTopicsForLesson: (lessonId) =>
 
 
-            TopicServices.findTopicsForModule(lessonId)
+            TopicServices.findTopicsForLesson(lessonId)
                 .then(actualTopics => dispatch({
                                                    type: "FIND_ALL_TOPICS",
                                                    topics: actualTopics
                                                }))
         ,
+        findAllTopics: ( () => {
+            TopicServices.findAllTopics()
+                .then(topics => dispatch({
+                    type: "SET_TOPICS",
+                    topics: topics
+                                         }))
+        }),
         deleteTopic: (topicId) =>
             // console.log(topicId)
             TopicServices.deleteTopic(topicId)

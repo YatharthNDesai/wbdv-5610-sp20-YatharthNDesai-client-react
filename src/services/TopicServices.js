@@ -10,12 +10,12 @@ export const createTopic = (lessonId, topic) =>
     })
         .then(response => response.json())
 
-export const findTopicsForModule =  (lessonId) =>
-    fetch(`https://wbdv-generic-server.herokuapp.com/api/001377543/lessons/${lessonId}/topics`)
+export const findTopicsForLesson =  (lessonId) =>
+    fetch(`http://localhost:8080/api/lessons/${lessonId}/topics`)
         .then(response => response.json())
 
 export const findAllTopics =  () =>
-    fetch("https://wbdv-generic-server.herokuapp.com/api/001377543/topics")
+    fetch("http://localhost:8080/api/topics")
         .then(response => response.json())
 
 export const deleteTopic = (topicId) =>
@@ -38,7 +38,7 @@ export const updateTopic = (topicId, topic) =>
 export default {
     findAllTopics,
     deleteTopic,
-    findTopicsForModule,
+    findTopicsForLesson,
     createTopic,
     updateTopic
 

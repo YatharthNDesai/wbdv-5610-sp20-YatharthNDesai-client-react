@@ -5,9 +5,6 @@ const initialState = {
 }
 
 const lessonReducer = (state = initialState, action) => {
-
-    console.log("state:", state)
-    console.log("state:", action)
     switch (action.type) {
         case "FIND_ALL_LESSONS":
             return {

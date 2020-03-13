@@ -57,7 +57,7 @@ const dispatchToPropertyMapper = (dispatch) => {
         findTopicsForLesson: (lessonId) =>
 
 
-            TopicServices.findTopicsForModule(lessonId)
+            TopicServices.findTopicsForLesson(lessonId)
                 .then(actualTopics => dispatch({
                                                    type: "FIND_ALL_TOPICS",
                                                    topics: actualTopics

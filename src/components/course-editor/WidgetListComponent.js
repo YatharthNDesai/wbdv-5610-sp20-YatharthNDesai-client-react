@@ -104,10 +104,9 @@ const dispatchToPropertyMapper = (dispatch) => ({
                  })
     },
     createWidget: (tid) =>
-        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`, {
+        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
             method: "POST",
             body: JSON.stringify({
-                                     id: (new Date()).getTime() + "",
                                      title: "New Widget"
                                  }),
             headers: {

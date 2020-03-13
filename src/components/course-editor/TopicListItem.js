@@ -14,12 +14,13 @@ class TopicListItem extends React.Component {
 
     render() {
         return (
+
             <button type="button"
                     className="btn btn-secondary  m-4  ">
                 {!this.state.editing && <Link
                     onClick={() => {
-                        this.props.findWidgetsForTopic(this.props.topic._id)}}
-                    to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.moduleId}/${this.props.lessonId}/${this.props.topic._id}`}
+                        this.props.findWidgetsForTopic(this.props.topic.id)}}
+                    to={`/course-editor/${this.props.courseId}/${this.props.title}/${this.props.moduleId}/${this.props.lessonId}/${this.props.topic.id}`}
 
                 >
                     {this.props.topic.title}
