@@ -62,6 +62,13 @@ class ParagraphWidgetComponent extends React.Component {
                                     <option>
                                         PARAGRAPH
                                     </option>
+                                    <option>
+                                        LIST
+                                    </option>
+                                    <option>
+                                        IMAGE
+                                    </option>
+
                                 </select>
                                 { this.props.index !== this.props.length-1 &&
                                   <button onClick={() => {

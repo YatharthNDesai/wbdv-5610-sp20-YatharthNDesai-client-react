@@ -1,10 +1,10 @@
 const widgets = []
 
 const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
-    console.log("Reached Reducer")
+    // console.log("Reached Reducer")
     switch (action.type) {
         case "CREATE_WIDGET":
-            console.log("Create")
+            // console.log("Create")
             return {
                 widgets: [
                     ...state.widgets,
@@ -12,7 +12,7 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
                 ]
             }
         case "DELETE_WIDGET":
-            console.log("Delete")
+            // console.log("Delete")
             return {
                 widgets: state.widgets.filter(widget =>
                                                   widget.id !== action.widgetId
@@ -28,8 +28,8 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
             }
 
         case "UPDATE_WIDGET":
-            console.log("Reducer" + action.widgetId + " " + action.title + " " +
-                        action.type + " " + action.size + " " + action.paragraph)
+            // console.log("Reducer" + action.widgetId + " " + action.title + " " +
+            //             action.type + " " + action.size + " " + action.paragraph)
             return {
 
                 ...state,
@@ -59,7 +59,7 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
         // widgets[action.index-1] = widgets[tempWidget]
 
         default:
-            console.log("Reached Default")
+            // console.log("Reached Default")
             return state
     }
 }
