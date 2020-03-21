@@ -104,7 +104,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
                  })
     },
     createWidget: (tid) =>
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`, {
             method: "POST",
             body: JSON.stringify({
                                      title: "New Widget"
@@ -120,7 +120,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
     ,
     updateAll: (tid, widgets) => {
 
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`, {
             method: "PUT",
             body: JSON.stringify(widgets),
             headers: {'content-type': 'application/json'}
@@ -135,7 +135,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
     updateWidget: (tid, wid, title, type, size, paragraph, list, url) => {
         console.log(url)
 
-        fetch(`http://localhost:8080/api/widgets/${wid}`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {
             method: 'PUT',
             body: JSON.stringify({
                                      id: wid,
@@ -166,7 +166,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
             })
     },
     deleteWidget: (wid) => {
-        fetch(`http://localhost:8080/api/widgets/${wid}`, {
+        fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {
             method: "DELETE"
         })
             .then(response => response.json())
@@ -183,7 +183,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                           widgets: widgets
                                       })),
     findWidgetsForTopic: (tid) =>
-        fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
+        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`)
             .then(response => response.json())
             .then(widgets => dispatch({
                                           type: "FIND_WIDGETS_FOR_TOPIC",
