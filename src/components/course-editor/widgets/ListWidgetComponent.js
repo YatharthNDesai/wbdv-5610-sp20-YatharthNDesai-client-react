@@ -22,19 +22,21 @@ class ListWidgetComponent extends React.Component {
                             <h1> {this.props.widget.type} Widget</h1>
                             <h3> {this.props.widget.title}</h3>
                             {this.props.widget.list === "Unordered List" &&
+
                              <ul>
-                                 {this.props.widget.paragraph.split("\n").map(element =>
+                                 {this.props.widget.paragraph && this.props.widget.paragraph.split("\n").map((element) =>
 
                                                                                     <li>{element}</li>
 
                                 )}
-                             </ul>}
+                             </ul>
+                             }
                             {this.props.widget.list === "Ordered List" &&
                              <ol>
-                                 {this.props.widget.paragraph.split("\n").map((element) =>
-                                                                             <ol>
+                                 {this.props.widget.paragraph && this.props.widget.paragraph.split("\n").map(element =>
+
                                                                                  <li>{element}</li>
-                                                                             </ol>
+
                              )}
                              </ol>}
                         </div>
@@ -49,6 +51,7 @@ class ListWidgetComponent extends React.Component {
                                 </button>
                                  <button onClick={() => {
                                      console.log(this.state.list)
+                                     console.log(this.state.widget.paragraph)
                                      this.props.save();
                                      this.props.updateWidget(this.props.topicId,
                                                              this.props.widget.id,
@@ -56,7 +59,8 @@ class ListWidgetComponent extends React.Component {
                                                              this.state.widget.type,
                                                              this.state.widget.size,
                                                              this.state.widget.paragraph,
-                                                             this.state.widget.order);
+                                                             this.state.widget.list,
+                                                             this.state.widget.url);
                                  }}
                                          type="button" className="btn btn-success m-1"
                                          style={{float: "right"}}>
@@ -118,7 +122,9 @@ class ListWidgetComponent extends React.Component {
                                                               this.state.widget.title,
                                                               this.state.widget.type,
                                                               this.state.widget.size,
-                                                              this.state.widget.paragraph);
+                                                              this.state.widget.paragraph,
+                                                              this.state.widget.list
+                                      );
                                   }
 
                                   }
@@ -155,6 +161,7 @@ class ListWidgetComponent extends React.Component {
                     {this.props.editing &&
                      <div>
                          <div className="form-group">
+                             <label style={{fontWeight:"bold"}}>Widget Name</label>
                              <input onChange={(e) => {
                                  const newTitle = e.target.value;
                                  this.setState(prevState => ({
@@ -170,13 +177,13 @@ class ListWidgetComponent extends React.Component {
                                     value={this.state.widget.title}/>
                          </div>
                          <div className="form-group">
+                             <label style={{fontWeight:"bold"}}>Widget List</label>
                                   <textarea onChange={(e) => {
 
                                       // const split = e.target.value.split("\n/");
 
                                       const newParagraph = e.target.value;
                                       const split = newParagraph.split("\n")
-                                      console.log(split)
                                       this.setState(prevState => ({
                                                         widget: {
                                                             ...prevState.widget,
@@ -186,12 +193,12 @@ class ListWidgetComponent extends React.Component {
                                           list: split
                                                     })
                                       )
-                                      console.log(this.state.list)
                                   }}
                                             className="form-control"
                                             value={this.state.widget.paragraph}></textarea>
                          </div>
                              <div className="form-group">
+                                 <label style={{fontWeight:"bold"}}>List type</label>
                              <select
                                  onChange={(e) => {
                                      let newType = e.target.value
@@ -224,7 +231,7 @@ class ListWidgetComponent extends React.Component {
                 }
                 {this.state.preview && this.props.editing && this.state.widget.list === "Unordered List" &&
                  <ul>
-                     {this.state.list.map((element) =>
+                     {this.state.list.map(element =>
 
                      <li>{element}</li>
 
@@ -236,7 +243,7 @@ class ListWidgetComponent extends React.Component {
                 {this.state.preview && this.props.editing && this.state.widget.list === "Ordered List" &&
                     <ol>
 
-                    {this.state.list.map((element) =>
+                    {this.state.list.map(element =>
 
                                              <li>{element}</li>
 

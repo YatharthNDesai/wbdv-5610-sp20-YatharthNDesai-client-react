@@ -28,8 +28,7 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
             }
 
         case "UPDATE_WIDGET":
-            // console.log("Reducer" + action.widgetId + " " + action.title + " " +
-            //             action.type + " " + action.size + " " + action.paragraph)
+            console.log("Reducer"  + " " + action.paragraph + " " + action.url)
             return {
 
                 ...state,
@@ -39,7 +38,8 @@ const HeadingWidgetReducer = (state = {widgets: widgets}, action) => {
                         widget.type = action.typ
                         widget.size = action.size
                         widget.paragraph = action.paragraph
-                        widget.order = action.order
+                        widget.list = action.list
+                        widget.url = action.url
                     }
                     return widget;
                 })

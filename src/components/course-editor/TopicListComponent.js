@@ -81,8 +81,8 @@ const dispatchToPropertyMapper = (dispatch) => {
         findAllTopics: ( () => {
             TopicServices.findAllTopics()
                 .then(topics => dispatch({
-                    type: "SET_TOPICS",
-                    topics: topics
+                                             type: "SET_TOPICS",
+                                             topics: topics
                                          }))
         }),
         deleteTopic: (topicId) =>

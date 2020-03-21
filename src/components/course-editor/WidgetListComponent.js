@@ -48,7 +48,7 @@ class WidgetListComponent extends React.Component {
                     </button>
                 </div>
                 {/*<h1>Widget List</h1>*/}
-                {this.props.widgets &&
+                {this.props.widgets && this.props.widgets.length > 0 &&
                  this.props.widgets.map((widget, index) =>
                                             <div key={widget.id}>
 
@@ -120,21 +120,22 @@ const dispatchToPropertyMapper = (dispatch) => ({
     ,
     updateAll: (tid, widgets) => {
 
-        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`, {
+        fetch(`http://localhost:8080/api/topics/${tid}/widgets`, {
             method: "PUT",
             body: JSON.stringify(widgets),
             headers: {'content-type': 'application/json'}
         }).then(response => response.json())
             .then(actualWidgets => {
-            dispatch({
-                         type: "UPDATE_ALL",
-                         widgets: actualWidgets,
-                     })
-        })
-} ,
-    updateWidget: (tid, wid, title, type, size, paragraph, order) => {
+                dispatch({
+                             type: "UPDATE_ALL",
+                             widgets: actualWidgets,
+                         })
+            })
+    } ,
+    updateWidget: (tid, wid, title, type, size, paragraph, list, url) => {
+        console.log(url)
 
-        fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {
+        fetch(`http://localhost:8080/api/widgets/${wid}`, {
             method: 'PUT',
             body: JSON.stringify({
                                      id: wid,
@@ -143,7 +144,8 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                      type: type,
                                      size: size,
                                      paragraph: paragraph,
-                                     order: order
+                                     list: list,
+                url:url
                                  }),
             headers: {
                 'content-type': 'application/json'
@@ -157,12 +159,14 @@ const dispatchToPropertyMapper = (dispatch) => ({
                              title: title,
                              typ: type,
                              size: size,
-                             paragraph: paragraph
+                             paragraph: paragraph,
+                    list: list,
+                    url: url
                          })
             })
     },
     deleteWidget: (wid) => {
-        fetch(`https://secret-beach-98864.herokuapp.com/api/widgets/${wid}`, {
+        fetch(`http://localhost:8080/api/widgets/${wid}`, {
             method: "DELETE"
         })
             .then(response => response.json())
@@ -179,7 +183,7 @@ const dispatchToPropertyMapper = (dispatch) => ({
                                           widgets: widgets
                                       })),
     findWidgetsForTopic: (tid) =>
-        fetch(`https://secret-beach-98864.herokuapp.com/api/topics/${tid}/widgets`)
+        fetch(`http://localhost:8080/api/topics/${tid}/widgets`)
             .then(response => response.json())
             .then(widgets => dispatch({
                                           type: "FIND_WIDGETS_FOR_TOPIC",

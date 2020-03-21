@@ -54,8 +54,8 @@ class HeadingWidgetComponent extends React.Component {
                                                         this.state.widget.type,
                                                         this.state.widget.size,
                                                         this.state.widget.paragraph,
-                                                        this.state.widget.order);
-                            }
+                                                        this.state.widget.list,
+                                this.state.widget.url)                           }
                             }
                                     type="button" className="btn btn-success m-1"
                                     style={{float: "right"}}>
@@ -164,6 +164,7 @@ class HeadingWidgetComponent extends React.Component {
                      <div>
 
                          <div className="form-group">
+                             <label style={{fontWeight:"bold"}}>Widget Name</label>
                              <input onChange={(e) => {
                                  const newTitle = e.target.value;
                                  this.setState(prevState => ({
@@ -180,6 +181,7 @@ class HeadingWidgetComponent extends React.Component {
                          </div>
 
                          <div className="form-group">
+                             <label style={{fontWeight:"bold"}}>Widget Size</label>
                              <select
                                  onChange={(e) => {
                                      let newSize = e.target.value

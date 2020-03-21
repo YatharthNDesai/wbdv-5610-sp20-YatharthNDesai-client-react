@@ -36,14 +36,14 @@ class TopicListItem extends React.Component {
                 }
                 {this.state.editing && <button className="btn" onClick={(e) => {
 
-                    this.props.updateTopic(this.props.topic._id, this.state.topicTitle)
+                    this.props.updateTopic(this.props.topic.id, this.state.topicTitle)
                     this.setState({
                                       editing: false
                                   })
                 }}><i className="fa fa-save"/></button>}
                 {this.state.editing && <a onClick={() => {
 
-                    this.props.deleteTopic(this.props.topic._id)
+                    this.props.deleteTopic(this.props.topic.id)
                     this.setState({
                                       editing: false
                                   })

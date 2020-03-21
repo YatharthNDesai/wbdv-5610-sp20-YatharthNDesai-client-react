@@ -38,7 +38,8 @@ class ParagraphWidgetComponent extends React.Component {
                                                              this.props.widget.id,
                                                              this.state.widget.title,
                                                              this.state.widget.type,
-                                                             this.state.widget.size,this.state.widget.paragraph,this.state.widget.order);
+                                                             this.state.widget.size,this.state.widget.paragraph,this.state.widget.list,
+                                                             this.state.widget.url);
                                  }}
                                          type="button" className="btn btn-success m-1"
                                          style={{float: "right"}}>
@@ -137,6 +138,7 @@ class ParagraphWidgetComponent extends React.Component {
                         { this.props.editing &&
                           <div>
                               <div className="form-group">
+                                  <label style={{fontWeight:"bold"}}>Widget Name</label>
                                   <input onChange={(e) => {
                                       const newTitle = e.target.value;
                                       this.setState(prevState => ({
@@ -152,6 +154,7 @@ class ParagraphWidgetComponent extends React.Component {
                                          value={this.state.widget.title}/>
                               </div>
                               <div className="form-group">
+                                  <label style={{fontWeight:"bold"}}>Widget Paragraph</label>
                                   <textarea onChange={(e) => {
                                       const newParagraph = e.target.value;
                                       this.setState(prevState => ({

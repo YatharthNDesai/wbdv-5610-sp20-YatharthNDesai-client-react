@@ -21,7 +21,7 @@ class ImageWidgetComponent extends React.Component {
                             <h1> {this.props.widget.type} Widget</h1>
                             <h3> {this.props.widget.title}</h3>
                             <img
-                                src={this.state.widget.url}
+                                src={this.props.widget.url}
                             />
                         </div>
                         <div className="col-6">
@@ -39,9 +39,8 @@ class ImageWidgetComponent extends React.Component {
                                                              this.props.widget.id,
                                                              this.state.widget.title,
                                                              this.state.widget.type,
-                                                             this.state.widget.size,
-                                                             this.state.widget.paragraph,
-                                                             this.state.widget.order);
+                                                             this.state.widget.size,this.state.widget.paragraph,this.state.widget.list,
+                                                             this.state.widget.url);
                                  }}
                                          type="button" className="btn btn-success m-1"
                                          style={{float: "right"}}>
@@ -80,7 +79,8 @@ class ImageWidgetComponent extends React.Component {
                                                               this.state.widget.title,
                                                               this.state.widget.type,
                                                               this.state.widget.size,
-                                                              this.state.widget.paragraph);
+                                                              this.state.widget.paragraph,this.state.widget.list,
+                                                              this.state.widget.url);
                                       // let newOrder = this.state.order + 1
                                       // this.setState(prevState => ({
                                       //     widget: {
@@ -103,7 +103,8 @@ class ImageWidgetComponent extends React.Component {
                                                               this.state.widget.title,
                                                               this.state.widget.type,
                                                               this.state.widget.size,
-                                                              this.state.widget.paragraph);
+                                                              this.state.widget.paragraph,this.state.widget.list,
+                                                              this.state.widget.url);
                                   }
 
                                   }
@@ -140,6 +141,7 @@ class ImageWidgetComponent extends React.Component {
                     {this.props.editing &&
                      <div>
                          <div className="form-group">
+                             <label style={{fontWeight:"bold"}}>Widget Name</label>
                              <input onChange={(e) => {
                                  const newTitle = e.target.value;
                                  this.setState(prevState => ({
@@ -155,14 +157,17 @@ class ImageWidgetComponent extends React.Component {
                                     value={this.state.widget.title}/>
                          </div>
                          <div className="form-group">
+                             <label style={{fontWeight:"bold"}}>Image URL</label>
                                   <input onChange={(e) => {
                                       const newUrl = e.target.value;
                                       this.setState(prevState => ({
-                                          widget: {
-                                              ...prevState.widget,
-                                              url: newUrl
-                                          }
-                                      }))
+                                                        widget: {
+                                                            ...prevState.widget,
+                                                            url: newUrl,
+                                                        }
+                                                    })
+
+                                      )
                                   }}
                                          className="form-control " type="text"
                                          value={this.state.widget.url}/>
