@@ -8,7 +8,7 @@ class ListWidgetComponent extends React.Component {
     state = {
         preview: false,
         widget: this.props.widget,
-        list: this.props.widget.paragraph.split("\n")
+        // list: this.props.widget.paragraph.split("\n")
     }
 
     render() {
